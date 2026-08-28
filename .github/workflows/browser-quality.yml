@@ -1,0 +1,66 @@
+name: Browser quality
+
+# Optional theme regression suite — not required for personal-site Pages deploys.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  GO_VERSION: 1.26.6
+  HUGO_VERSION: 0.164.0
+  NODE_VERSION: 24
+  HUGO_CACHEDIR: ${{ github.workspace }}/.hugo_cache
+  GOMODCACHE:
+    ${{ github.workspace }}/.hugo_cache/modules/filecache/modules/pkg/mod
+
+jobs:
+  # One matrix entry per Playwright suite. The `name` values are the published
+  # check names, so they must stay stable for branch protection.
+  browser:
+    name: ${{ matrix.suite.name }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        suite:
+          - name: Axe WCAG AA
+            target: test:a11y
+            artifact: axe
+          - name: Responsive shell and mobile menu
+            target: test:responsive-shell
+            artifact: responsive-shell
+          - name: Content components
+            target: test:content-components
+            artifact: content-components
+          - name: Enhanced code blocks
+            target: test:code-blocks
+            artifact: code-blocks
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v7
+        with:
+          go-version: ${{ env.GO_VERSION }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - name: Install Hugo Extended
+        run: |
+          curl -L -o hugo.deb \
+            "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
+          sudo dpkg -i hugo.deb
+      - name: Download Hugo module
+        run: go mod download github.com/pgsty/oink
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install --with-deps chromium
+      - run: npm run ${{ matrix.suite.target }}
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ${{ matrix.suite.artifact }}-playwright-report
+          path: tmp/playwright-report
+          if-no-files-found: ignore

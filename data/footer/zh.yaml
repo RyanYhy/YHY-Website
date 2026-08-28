@@ -1,0 +1,24 @@
+brand:
+  name: YHY Study Website
+  logo: images/avatar.png
+  tagline: 笔记 · 项目 · 博客
+  slogan: 个人学习与作品站点
+columns:
+  - title: 内容
+    links:
+      - { label: 经历, url: experience/ }
+      - { label: 学习, url: learn/ }
+      - { label: 博客, url: blog/ }
+      - { label: 友链, url: links/ }
+  - title: 站点
+    links:
+      - {
+          label: GitHub,
+          url: 'https://github.com/RyanYhy/YHY-Website',
+          external: true,
+        }
+      - {
+          label: OINK 主题,
+          url: 'https://oink.pgsty.com',
+          external: true,
+        }

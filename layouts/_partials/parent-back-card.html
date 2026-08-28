@@ -1,0 +1,21 @@
+{{- /*
+  Compact “back to parent” card for docs pages.
+  Opt out with front matter: parent_back: false
+*/ -}}
+{{- $enabled := true -}}
+{{- with .Params.parent_back -}}
+  {{- if eq (printf "%T" .) "bool" -}}
+    {{- $enabled = . -}}
+  {{- end -}}
+{{- end -}}
+{{- if and $enabled .Parent (not .Parent.IsHome) -}}
+  {{- $parent := .Parent -}}
+  <a class="td-parent-back d-print-none" href="{{ $parent.RelPermalink }}"
+     aria-label="返回 {{ $parent.LinkTitle | default $parent.Title }}">
+    <span class="td-parent-back__arrow" aria-hidden="true">←</span>
+    <span class="td-parent-back__body">
+      <span class="td-parent-back__label">返回上一级</span>
+      <span class="td-parent-back__title">{{ $parent.LinkTitle | default $parent.Title }}</span>
+    </span>
+  </a>
+{{- end -}}
