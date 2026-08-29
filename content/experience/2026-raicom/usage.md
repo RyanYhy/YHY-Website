@@ -18,7 +18,8 @@ weight: 20
 | `~/cv_bridge_ws` | Python3 版 cv_bridge（YOLO 节点） |
 | Conda `yolov8` | ONNX 推理 |
 
-![环境 overlay](/images/raicom2026/env_overlay.png){caption="overlay 加载顺序（setup_env.sh）"}
+![环境 overlay](/images/raicom2026/env_overlay.png)
+{caption="overlay 加载顺序（setup_env.sh）"}
 
 ### 统一环境入口 {#setup-env}
 

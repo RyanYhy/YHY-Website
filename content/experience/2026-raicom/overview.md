@@ -21,7 +21,8 @@ weight: 10
 
 启动分两段：**prep** 拉起全部传感器与模型；裁判计时后 **go** 只启动导航编排，秒级出发。
 
-![七层架构](/images/raicom2026/arch_layers.png){caption="系统分层：由硬件到比赛任务"}
+![七层架构](/images/raicom2026/arch_layers.png)
+{caption="系统分层：由硬件到比赛任务"}
 
 ## 分层结构 {#layers}
 
@@ -37,7 +38,8 @@ weight: 10
 
 ## 总数据流 {#dataflow}
 
-![总数据流](/images/raicom2026/dataflow.png){caption="传感器 → 融合 → 定位 → 规划 → 底盘；nav 经 Service 触发视觉任务"}
+![总数据流](/images/raicom2026/dataflow.png)
+{caption="传感器 → 融合 → 定位 → 规划 → 底盘；nav 经 Service 触发视觉任务"}
 
 **传感器 → 融合 → 定位 → 规划 → 底盘**
 
