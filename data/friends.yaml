@@ -1,0 +1,5 @@
+# Friend links on /links/. Each entry needs name + url; avatar and desc are optional.
+- name: OINK
+  url: https://oink.pgsty.com
+  avatar: https://oink.pgsty.com/apple-touch-icon.png
+  desc: 本站使用的 Hugo 主题

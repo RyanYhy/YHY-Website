@@ -1,0 +1,38 @@
+{{- /*
+  Friend-link grid from data/friends.yaml.
+
+  HTML/print: avatar + name + host + one-line description.
+  Markdown/RSS: a plain link list so non-HTML outputs stay readable.
+
+  Usage: {{< friends >}}
+*/ -}}
+{{- $format := lower (.Page.Store.Get "tdOutputFormat" | default "html") -}}
+{{- $friends := index hugo.Data "friends" | default slice -}}
+{{- if or (eq $format "html") (eq $format "print") -}}
+<div class="td-friends">
+  {{- range $friends }}
+  {{- $name := .name | default "" -}}
+  {{- $url := .url | default "" -}}
+  {{- if and $name $url }}
+  {{- $host := "" -}}
+  {{- with urls.Parse $url }}{{ $host = .Host }}{{ end -}}
+  <a class="td-friends__card" href="{{ $url | safeURL }}" target="_blank" rel="noopener noreferrer">
+    {{- with .avatar }}
+    <img class="td-friends__avatar" src="{{ . | safeURL }}" alt="" width="48" height="48" loading="lazy" decoding="async">
+    {{- end }}
+    <span class="td-friends__body">
+      <span class="td-friends__name">{{ $name }}</span>
+      {{- with $host }}<span class="td-friends__host">{{ . }}</span>{{ end }}
+      {{- with .desc }}<span class="td-friends__desc">{{ . }}</span>{{ end }}
+    </span>
+  </a>
+  {{- end }}
+  {{- end }}
+</div>
+{{- else -}}
+{{- range $friends }}
+{{- if and .name .url -}}
+- [{{ .name }}]({{ .url }}){{ with .desc }} — {{ . }}{{ end }}
+{{ end -}}
+{{- end -}}
+{{- end -}}

@@ -1,0 +1,54 @@
+{{- /*
+  This site's friend-link details, shown as labeled rows (not a code fence).
+
+  Values come from hugo.yml: title, productionURL, logo, description.
+  The avatar image loads from the current site; the visible URL is production.
+
+  Usage: {{< friends-self >}}
+*/ -}}
+{{- $format := lower (.Page.Store.Get "tdOutputFormat" | default "html") -}}
+{{- $name := site.Title -}}
+{{- $base := strings.TrimSuffix "/" (site.Params.productionURL | default "") -}}
+{{- $url := printf "%s/" $base -}}
+{{- $page := printf "%s/links/" $base -}}
+{{- $logo := strings.TrimPrefix "/" (site.Params.logo | default "images/avatar.png") -}}
+{{- $avatar := printf "%s/%s" $base $logo -}}
+{{- $desc := site.Params.description | default "" -}}
+{{- $img := urls.JoinPath site.BaseURL $logo -}}
+{{- if or (eq $format "html") (eq $format "print") -}}
+<div class="td-friends-self">
+  <div class="td-friends-self__row">
+    <span class="td-friends-self__label">名称</span>
+    <span class="td-friends-self__value">{{ $name }}</span>
+  </div>
+  <div class="td-friends-self__row">
+    <span class="td-friends-self__label">链接</span>
+    <a class="td-friends-self__value" href="{{ $url | safeURL }}">{{ $url }}</a>
+  </div>
+  <div class="td-friends-self__row">
+    <span class="td-friends-self__label">友链页</span>
+    <a class="td-friends-self__value" href="{{ $page | safeURL }}">{{ $page }}</a>
+  </div>
+  <div class="td-friends-self__row td-friends-self__row--avatar">
+    <span class="td-friends-self__label">头像</span>
+    <span class="td-friends-self__value">
+      <img class="td-friends-self__avatar" src="{{ $img | safeURL }}" alt="" width="40" height="40" loading="lazy" decoding="async">
+      <a href="{{ $avatar | safeURL }}">{{ $avatar }}</a>
+    </span>
+  </div>
+  {{- with $desc }}
+  <div class="td-friends-self__row">
+    <span class="td-friends-self__label">简介</span>
+    <span class="td-friends-self__value">{{ . }}</span>
+  </div>
+  {{- end }}
+</div>
+{{- else -}}
+- 名称：{{ $name }}
+- 链接：{{ $url }}
+- 友链页：{{ $page }}
+- 头像：{{ $avatar }}
+{{- with $desc }}
+- 简介：{{ . }}
+{{- end }}
+{{- end -}}

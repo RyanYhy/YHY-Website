@@ -1,0 +1,47 @@
+name: 申请友链
+description: 先把本站加到你的友链页，再填写站点信息。
+title: "申请友链："
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请先在你的站点加上本站友链，再提交。本站信息见 <https://ryanyhy.github.io/YHY-Website/links/>。
+  - type: input
+    id: name
+    attributes:
+      label: 站点名称
+      description: 对应 data/friends.yaml 的 name
+      placeholder: YHY Study Website
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: 站点链接
+      description: 对应 url
+      placeholder: https://
+    validations:
+      required: true
+  - type: input
+    id: avatar
+    attributes:
+      label: 头像链接
+      description: 对应 avatar，公开可访问的图片 URL
+      placeholder: https://
+    validations:
+      required: true
+  - type: textarea
+    id: desc
+    attributes:
+      label: 简短介绍
+      description: 对应 desc，一两句话即可
+    validations:
+      required: true
+  - type: input
+    id: friend_page
+    attributes:
+      label: 你的友链页链接
+      description: 方便确认已经互加
+      placeholder: https://
+    validations:
+      required: true
