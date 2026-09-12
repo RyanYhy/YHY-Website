@@ -38,7 +38,7 @@ cascade:
 
 ## 使用说明 {#usage}
 
-环境、三 workspace、conda、编译与两段式启动。
+环境、3个 workspace、conda、编译与两段式启动。
 
 → [阅读使用说明](usage/)
 
