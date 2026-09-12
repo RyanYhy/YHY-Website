@@ -23,7 +23,7 @@
 
 - 对外文档以 **`my-project-docs/content/`** 为准，不是 `raicom2026/docs/`。
 - 主题：Hugo Module `github.com/pgsty/oink`（版本见 `go.mod`，当前 v0.6.0）。
-- 线上：<https://ryanyhy.github.io/YHY-Website/>
+- 线上：<https://ryan.0412.online/>
 
 ---
 
