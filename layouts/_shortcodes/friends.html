@@ -1,37 +1,103 @@
 {{- /*
-  Friend-link grid from data/friends.yaml.
+  Friend-link board: apply card on the left, two columns of site cards on the right.
 
-  HTML/print: avatar + name + host + one-line description.
-  Markdown/RSS: a plain link list so non-HTML outputs stay readable.
+  HTML/print: the three-column layout.
+  Markdown/RSS: apply notes plus a plain link list.
 
   Usage: {{< friends >}}
 */ -}}
 {{- $format := lower (.Page.Store.Get "tdOutputFormat" | default "html") -}}
 {{- $friends := index hugo.Data "friends" | default slice -}}
+{{- $name := site.Title -}}
+{{- $base := strings.TrimSuffix "/" (site.Params.productionURL | default "") -}}
+{{- $url := printf "%s/" $base -}}
+{{- $page := printf "%s/links/" $base -}}
+{{- $logo := strings.TrimPrefix "/" (site.Params.logo | default "images/avatar.png") -}}
+{{- $avatar := printf "%s/%s" $base $logo -}}
+{{- $desc := site.Params.description | default "" -}}
+{{- $img := urls.JoinPath site.BaseURL $logo -}}
+{{- $repo := strings.TrimSuffix "/" (site.Params.github_repo | default "https://github.com/RyanYhy/YHY-Website") -}}
+{{- $issue := printf "%s/issues/new?template=friend-link.yml" $repo -}}
+{{- $yaml := printf "%s/blob/main/data/friends.yaml" $repo -}}
 {{- if or (eq $format "html") (eq $format "print") -}}
-<div class="td-friends">
-  {{- range $friends }}
-  {{- $name := .name | default "" -}}
-  {{- $url := .url | default "" -}}
-  {{- if and $name $url }}
-  {{- $host := "" -}}
-  {{- with urls.Parse $url }}{{ $host = .Host }}{{ end -}}
-  <a class="td-friends__card" href="{{ $url | safeURL }}" target="_blank" rel="noopener noreferrer">
-    {{- with .avatar }}
-    <img class="td-friends__avatar" src="{{ . | safeURL }}" alt="" width="64" height="64" loading="lazy" decoding="async">
-    {{- end }}
-    <span class="td-friends__body">
-      <span class="td-friends__name">{{ $name }}</span>
-      {{- with $host }}<span class="td-friends__host">{{ . }}</span>{{ end }}
-      {{- with .desc }}<span class="td-friends__desc">{{ . }}</span>{{ end }}
-    </span>
-  </a>
-  {{- end }}
-  {{- end }}
+<div class="td-friends-board">
+  <aside class="td-friends-apply">
+    <h2 class="td-friends-apply__title">投递站点</h2>
+    <p class="td-friends-apply__lead">先把本站加到你的友链页，再开 Issue 申请，或直接提 PR 修改 <code>data/friends.yaml</code>。</p>
+    <h3 class="td-friends-apply__sub">本站信息</h3>
+    <dl class="td-friends-apply__fields">
+      <div>
+        <dt>名称</dt>
+        <dd>{{ $name }}</dd>
+      </div>
+      <div>
+        <dt>链接</dt>
+        <dd><a href="{{ $url | safeURL }}">{{ $url }}</a></dd>
+      </div>
+      <div>
+        <dt>友链页</dt>
+        <dd><a href="{{ $page | safeURL }}">{{ $page }}</a></dd>
+      </div>
+      <div class="td-friends-apply__avatar-field">
+        <dt>头像</dt>
+        <dd>
+          <img class="td-friends-apply__avatar" src="{{ $img | safeURL }}" alt="" width="36" height="36" loading="lazy" decoding="async">
+          <a href="{{ $avatar | safeURL }}">{{ $avatar }}</a>
+        </dd>
+      </div>
+      {{- with $desc }}
+      <div class="td-friends-apply__span">
+        <dt>简介</dt>
+        <dd>{{ . }}</dd>
+      </div>
+      {{- end }}
+    </dl>
+    <div class="td-friends-apply__actions">
+      <a class="td-friends-apply__btn" href="{{ $issue | safeURL }}">开 Issue</a>
+      <a class="td-friends-apply__btn td-friends-apply__btn--ghost" href="{{ $yaml | safeURL }}">提 PR</a>
+    </div>
+  </aside>
+  <div class="td-friends-main">
+    <h2 class="td-friends-main__title">友链</h2>
+    <div class="td-friends">
+      {{- range $friends }}
+      {{- $fname := .name | default "" -}}
+      {{- $furl := .url | default "" -}}
+      {{- if and $fname $furl }}
+      {{- $host := "" -}}
+      {{- with urls.Parse $furl }}{{ $host = .Host }}{{ end -}}
+      <a class="td-friends__card" href="{{ $furl | safeURL }}" target="_blank" rel="noopener noreferrer">
+        {{- with .avatar }}
+        <img class="td-friends__avatar" src="{{ . | safeURL }}" alt="" width="64" height="64" loading="lazy" decoding="async">
+        {{- end }}
+        <span class="td-friends__body">
+          <span class="td-friends__name">{{ $fname }}</span>
+          {{- with $host }}<span class="td-friends__host">{{ . }}</span>{{ end }}
+          {{- with .desc }}<span class="td-friends__desc">{{ . }}</span>{{ end }}
+        </span>
+      </a>
+      {{- end }}
+      {{- end }}
+    </div>
+  </div>
 </div>
 {{- else -}}
+## 申请友链
+
+先把本站加到你的友链页，再开 [Issue]({{ $issue }}) 或 PR 修改 [`data/friends.yaml`]({{ $yaml }})。
+
+- 名称：{{ $name }}
+- 链接：{{ $url }}
+- 友链页：{{ $page }}
+- 头像：{{ $avatar }}
+{{- with $desc }}
+- 简介：{{ . }}
+{{- end }}
+
+## 友链
+
 {{- range $friends }}
-{{- if and .name .url -}}
+{{- if and .name .url }}
 - [{{ .name }}]({{ .url }}){{ with .desc }} — {{ . }}{{ end }}
 {{ end -}}
 {{- end -}}
