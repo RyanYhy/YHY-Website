@@ -1,4 +1,12 @@
 /*
 Projects can override this file. For details, see:
 https://www.docsy.dev/docs/content/lookandfeel/#project-style-files
+https://oink.pgsty.com/docs/customize/brand/
 */
+
+// Armor crimson — buttons, badges, Bootstrap semantic primary.
+// Gold lives on the brand layer (copper / mark gradient), not here:
+// a yellow $primary would wash out alerts and fail body contrast.
+$primary: #9b1b2e;
+$secondary: #b8860b;
+$warning: #b8860b;

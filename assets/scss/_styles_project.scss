@@ -3,6 +3,180 @@
 // Custom Docsy website styles below this point:
 @import 'blog';
 
+// -- Stark brand ------------------------------------------------------------
+//
+// OINK's default palette is cool navy / sky. This site already uses an Iron
+// Man hero, so the brand layer is remapped to armor materials:
+//   light — warm dossier paper + deep crimson ink
+//   dark  — workshop charcoal + metallic gold links
+// Red is the suit; gold is the trim. Body links stay gold in dark mode so
+// they remain readable. Do not turn the docs shell into a HUD costume.
+
+:root,
+[data-bs-theme='light'] {
+  --bs-body-bg: #f6efe6;
+  --bs-body-bg-rgb: 246, 239, 230;
+  --bs-body-color: #231814;
+  --bs-body-color-rgb: 35, 24, 20;
+  --bs-emphasis-color: #160f0c;
+  --bs-emphasis-color-rgb: 22, 15, 12;
+  --bs-secondary-color: #5c4a3d;
+  --bs-secondary-color-rgb: 92, 74, 61;
+  --bs-tertiary-color: #7a6555;
+  --bs-tertiary-color-rgb: 122, 101, 85;
+  --bs-secondary-bg: #efe4d4;
+  --bs-secondary-bg-rgb: 239, 228, 212;
+  --bs-tertiary-bg: #fbf6ee;
+  --bs-tertiary-bg-rgb: 251, 246, 238;
+  --bs-border-color: rgba(140, 70, 40, 0.16);
+  --bs-border-color-translucent: rgba(140, 70, 40, 0.16);
+  --bs-link-color: #9b1b2e;
+  --bs-link-color-rgb: 155, 27, 46;
+  --bs-link-hover-color: #c41e3a;
+  --bs-link-hover-color-rgb: 196, 30, 58;
+  --bs-code-color: #8a5a10;
+  --td-pre-bg: #fffaf3;
+  --td-brand-elev: #fffaf3;
+  --td-brand-silk: #7a6555;
+  --td-brand-copper: #b8860b;
+  --td-brand-copper-dim: rgba(184, 134, 11, 0.55);
+  --td-brand-line-strong: rgba(155, 27, 46, 0.32);
+  --td-brand-header-bg: rgba(246, 239, 230, 0.88);
+  --td-brand-shadow-sm: 0 2px 10px rgba(70, 28, 18, 0.08);
+  --td-brand-shadow-md: 0 12px 34px rgba(70, 28, 18, 0.12);
+  --td-brand-mark-from: #c41e3a;
+  --td-brand-mark-to: #d4a017;
+  --td-brand-mark-gradient: linear-gradient(
+    90deg,
+    var(--td-brand-mark-from) 0%,
+    var(--td-brand-mark-from) 38%,
+    var(--td-brand-mark-to) 100%
+  );
+}
+
+[data-bs-theme='dark'] {
+  --bs-body-bg: #0e0b0b;
+  --bs-body-bg-rgb: 14, 11, 11;
+  --bs-body-color: #f3eee6;
+  --bs-body-color-rgb: 243, 238, 230;
+  --bs-emphasis-color: #fff8ee;
+  --bs-emphasis-color-rgb: 255, 248, 238;
+  --bs-secondary-color: #c9b8a8;
+  --bs-secondary-color-rgb: 201, 184, 168;
+  --bs-tertiary-color: #8f7e70;
+  --bs-tertiary-color-rgb: 143, 126, 112;
+  --bs-secondary-bg: #1a1412;
+  --bs-secondary-bg-rgb: 26, 20, 18;
+  --bs-tertiary-bg: #221a16;
+  --bs-tertiary-bg-rgb: 34, 26, 22;
+  --bs-border-color: rgba(232, 184, 74, 0.16);
+  --bs-border-color-translucent: rgba(232, 184, 74, 0.16);
+  --bs-link-color: #e8b84a;
+  --bs-link-color-rgb: 232, 184, 74;
+  --bs-link-hover-color: #f3d07a;
+  --bs-link-hover-color-rgb: 243, 208, 122;
+  --bs-code-color: #e8b84a;
+  --td-pre-bg: #0a0808;
+  --td-brand-elev: #1a1412;
+  --td-brand-silk: #b8a394;
+  --td-brand-copper: #e8b84a;
+  --td-brand-copper-dim: rgba(232, 184, 74, 0.5);
+  --td-brand-line-strong: rgba(232, 184, 74, 0.34);
+  --td-brand-header-bg: rgba(14, 11, 11, 0.92);
+  --td-brand-shadow-sm: 0 4px 18px rgba(0, 0, 0, 0.4);
+  --td-brand-shadow-md: 0 14px 44px rgba(0, 0, 0, 0.5);
+  --td-brand-mark-from: #e11d48;
+  --td-brand-mark-to: #e8b84a;
+  --td-brand-mark-gradient: linear-gradient(
+    90deg,
+    var(--td-brand-mark-from) 0%,
+    var(--td-brand-mark-from) 36%,
+    var(--td-brand-mark-to) 100%
+  );
+}
+
+::selection {
+  background: color-mix(in srgb, var(--td-brand-mark-from) 28%, transparent);
+  color: inherit;
+}
+
+.td-site-header {
+  border-block-end: 1px solid
+    color-mix(in srgb, var(--td-brand-copper) 35%, transparent);
+  box-shadow: 0 1px 0
+    color-mix(in srgb, var(--td-brand-mark-from) 18%, transparent);
+}
+
+.td-landing-landing {
+  --td-grid: rgba(155, 27, 46, 0.055);
+}
+
+[data-bs-theme='dark'] .td-landing-landing {
+  --td-grid: rgba(232, 184, 74, 0.05);
+}
+
+.td-landing-hero__title > span:first-child {
+  // background-clip:text paints only inside the box. The theme's block +
+  // nowrap span is as wide as the copy column, so the last glyph of
+  // "Website" overflowed and vanished (transparent fill, no background).
+  display: inline-block;
+  width: max-content;
+  padding-inline-end: 0.18em;
+  background: var(--td-brand-mark-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  @media (max-width: 767.98px) {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  @media (forced-colors: active) {
+    background: none;
+    color: CanvasText;
+    -webkit-text-fill-color: CanvasText;
+  }
+}
+
+.td-landing-hero__media {
+  filter: drop-shadow(
+    0 0 32px color-mix(in srgb, var(--td-brand-mark-from) 22%, transparent)
+  );
+}
+
+.td-landing-button--primary {
+  background: #c41e3a;
+  color: #fffaf3;
+  box-shadow: 0 6px 22px rgba(196, 30, 58, 0.34);
+
+  &:hover {
+    background: #e11d48;
+    color: #fffaf3;
+    box-shadow: 0 10px 30px rgba(225, 29, 72, 0.42);
+  }
+}
+
+.td-landing-status-dot {
+  background: #e8b84a;
+  box-shadow: 0 0 0 3px rgba(196, 30, 58, 0.2);
+}
+
+@keyframes td-landing-status {
+  50% {
+    box-shadow: 0 0 0 6px rgba(196, 30, 58, 0.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .td-landing-hero__media {
+    filter: none;
+  }
+}
+
 // Homepage “四个栏目” cards: the theme only wires the corner arrow as a link.
 // Stretch that link over the whole card so the full surface is clickable.
 .td-landing-cards-section .td-landing-card {
@@ -130,6 +304,8 @@
 .td-site-footer__logo img {
   border-radius: 50%;
   object-fit: cover;
+  box-shadow: 0 0 0 1.5px
+    color-mix(in srgb, var(--td-brand-copper) 72%, transparent);
 }
 
 
