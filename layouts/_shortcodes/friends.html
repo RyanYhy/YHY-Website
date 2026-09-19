@@ -68,7 +68,7 @@
       {{- with urls.Parse $furl }}{{ $host = .Host }}{{ end -}}
       <a class="td-friends__card" href="{{ $furl | safeURL }}" target="_blank" rel="noopener noreferrer">
         {{- with .avatar }}
-        <img class="td-friends__avatar" src="{{ . | safeURL }}" alt="" width="64" height="64" loading="lazy" decoding="async">
+        <img class="td-friends__avatar" src="{{ . | safeURL }}" alt="" width="80" height="80" loading="lazy" decoding="async">
         {{- end }}
         <span class="td-friends__body">
           <span class="td-friends__name">{{ $fname }}</span>
