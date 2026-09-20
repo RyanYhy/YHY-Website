@@ -7,7 +7,7 @@
 > `D:\MyData\yhy\10tool\obsidian\storage\obsidian\`  
 > **发布目标**：`my-project-docs/content/`（Oink / Hugo）
 
-最后更新：2026-09-03（博客 Page Bundle + 头图提示词）
+最后更新：2026-09-20（博客须围绕一个目的组织，不确定则问用户）
 
 > [!IMPORTANT] 安全优先
 > 站点为 **公开 GitHub 仓库 + GitHub Pages**，任何 push 的内容都可能被检索、 fork、缓存。**正文与代码块**中的真实 IP、域名、端口、密码、Token、API Key 等一律不得原样发布；须脱敏并标明为虚构示例（见 §3）。
@@ -116,13 +116,27 @@ sudo ufw allow from <ip2> to any port <port1> proto tcp
 ## 4. 迁移工作流（Checklist）
 
 1. 读取 Obsidian `.md`（含 front matter 若有）。
-2. **安全审查与脱敏**（§3）：正文 + 代码块 + 图片。
-3. 选定目标栏目与文件名（博客用英文 slug，**建文件夹 + `index.md`**，见 §5.1）。
-4. 重写 front matter（见 §5），**不要**只留 Obsidian 的 `date:`。
-5. 正文按 §6 替换 Obsidian 专有语法。
-6. 按 §7 使用 Oink 组件；博客若有头图，按 §7.8 插入并做 §3 脱敏检查。
-7. 本地构建验证：`cd my-project-docs && hugo server` 或 `hugo --minify`。
-8. `git diff` 再次确认无密钥、无真实内网地址后，在用户要求时再 `commit` / `push`（未经要求不要 commit）。
+2. **先确定目的**（§4.1）：这些笔记要完成什么？章节必须按该目的串成一条线。**不确定就先问用户，不要猜完硬写。**
+3. **安全审查与脱敏**（§3）：正文 + 代码块 + 图片。
+4. 选定目标栏目与文件名（博客用英文 slug，**建文件夹 + `index.md`**，见 §5.1）。
+5. 重写 front matter（见 §5），**不要**只留 Obsidian 的 `date:`。
+6. 正文按 §6 替换 Obsidian 专有语法。
+7. 按 §7 使用 Oink 组件；博客若有头图，按 §7.8 插入并做 §3 脱敏检查。
+8. 本地构建验证：`cd my-project-docs && hugo server` 或 `hugo --minify`。
+9. `git diff` 再次确认无密钥、无真实内网地址后，在用户要求时再 `commit` / `push`（未经要求不要 commit）。
+
+### 4.1 围绕一个目的组织（防止割裂）
+
+用户给的多篇 Obsidian 笔记通常是**为完成同一件事**积累的，不是互不相关的百科条目。整理成博客时：
+
+1. **先用一句话说清目的**（例如：「在 VMware Ubuntu 里跑通自定义内核，并加载自己的 `.ko`」）。写在文章开头，后面每一节都要回答「这一步如何推进该目的」。
+2. **按完成路径排章节**，不要按源文件名机械拼接。该合并的合并，该当前置条件的放前面。
+3. **节与节之间写清因果**：上一节产出什么、下一节为什么需要它。避免「虚拟机一节、内核一节」并列堆叠、读完仍不知道为什么要一起看。
+4. **结尾回收主线**：用检查表或小结把各段重新串回目的，不要只停在最后一步的命令上。
+5. **不确定目的时必须问用户**，例如：「这两篇是操作系统实验的一条线，还是两篇独立文章？」在得到答复前不要写成割裂的拼盘。
+6. **标题用陈述性技术用语**，避免口语标题（如「这条线为什么从…」「串起来看一眼」「不会飘的地址」）。正文可以略口语，`##` / `###` 应像文档目录：对象 + 动作，或术语本身。
+
+反例：把「VMware 静态 IP」和「编译内核」各写一块，中间没有「为什么先配网 / 为什么必须在这台虚拟机里编」。正例：先交代实验环境 → 配稳虚拟机网络 → 再在这台机上换内核、写模块。
 
 ---
 
@@ -456,6 +470,7 @@ git push origin main
 | 博客（Page Bundle + 头图） | `content/blog/linux-ssh-security-notes/` |
 | 博客（Page Bundle + 头图） | `content/blog/ros-workspace-migration/` |
 | 博客（Page Bundle + 头图） | `content/blog/oink-site-setup-notes/` |
+| 博客（Page Bundle + 头图） | `content/blog/custom-linux-kernel-in-vm/` |
 | 文档 + 图注 + 步骤 | `content/experience/2026-raicom/overview.md` |
 | 栏目 `_index` + TOC 小节 | `content/experience/2026-raicom/_index.md` |
 | 博客栏目配置 | `content/blog/_index.md` |
@@ -465,13 +480,14 @@ git push origin main
 ## 13. Agent 整理 Obsidian 为博客时的写作要求
 
 1. **安全（最高优先级）**：按 §3 脱敏；正文、代码块、**头图内文字**同等对待；IP 用 `ip1`/`ip2` 等占位；疑似密钥时提醒用户且勿 push。
-2. **博客结构**：新文一律 **`content/blog/<slug>/index.md` Page Bundle**（§5.1）；配图放同目录；需要头图时按 §7.8 写 prompt 或引导用户确认。
-3. **语气**：比 Obsidian 草稿更像「博客/文档」——有简短引言、逻辑分段、必要时加小结；不照抄口语碎片。
-4. **结构**：背景 → 步骤/要点 → 验证或小结；长文用 `##` + `{#id}`。
-5. **组件**：操作步骤用 `{.steps}`；注意事项用 `[!NOTE]` / `[!WARNING]`。
-6. **链接**：Obsidian 双链改为本站可点击路径或 GitHub 外链。
-7. **源稿**：只读 Obsidian；输出只写入 `content/`（博客图进 Page Bundle；文档大图进 `static/images/`）。
-8. **范围**：最小改动；不顺手改无关页面或配置。
+2. **先定目的再动笔**（§4.1）：多篇笔记按**同一完成路径**组织；节与节写清因果；结尾回收主线。**目的说不清就问用户**，不要写成互不相关的章节拼盘。
+3. **博客结构**：新文一律 **`content/blog/<slug>/index.md` Page Bundle**（§5.1）；配图放同目录；需要头图时按 §7.8 写 prompt 或引导用户确认。
+4. **语气**：比 Obsidian 草稿更像「博客/文档」——有简短引言、逻辑分段、必要时加小结；不照抄口语碎片。**章节标题不要口语化。**
+5. **结构**：目的 → 前置条件 → 步骤 → 验证 → 小结；长文用 `##` + `{#id}`。
+6. **组件**：操作步骤用 `{.steps}`；注意事项用 `[!NOTE]` / `[!WARNING]`。
+7. **链接**：Obsidian 双链改为本站可点击路径或 GitHub 外链。
+8. **源稿**：只读 Obsidian；输出只写入 `content/`（博客图进 Page Bundle；文档大图进 `static/images/`）。改站默认先改 `my-project-docs-vercel/`，再同步 `my-project-docs/`。
+9. **范围**：最小改动；不顺手改无关页面或配置。
 
 ---
 
