@@ -1,0 +1,142 @@
+<script>
+(function () {
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var forced = window.matchMedia('(forced-colors: active)');
+
+  function allowed() {
+    return fine.matches && !reduce.matches && !forced.matches;
+  }
+
+  if (!allowed()) return;
+
+  var root = document.documentElement;
+  var cursor = document.createElement('div');
+  cursor.className = 'td-stark-cursor is-off';
+  cursor.setAttribute('aria-hidden', 'true');
+  cursor.innerHTML = '<div class="td-stark-cursor__ring"><div class="td-stark-cursor__scale"><span class="td-stark-cursor__ticks"></span></div></div><div class="td-stark-cursor__core"></div>';
+  document.body.appendChild(cursor);
+
+  var ring = cursor.firstElementChild;
+  var core = cursor.lastElementChild;
+  root.classList.add('has-stark-cursor');
+
+  var x = 0;
+  var y = 0;
+  var rx = 0;
+  var ry = 0;
+  var raf = 0;
+  var active = false;
+
+  var fieldSel = 'input, textarea, select, option, [contenteditable="true"]';
+  var interactiveSel = 'a, button, summary, [role="button"], [role="link"]';
+
+  var blockSel = 'p, li, blockquote, dd, figcaption, td, th, h1, h2, h3, h4, h5, h6';
+
+  // A multi-line paragraph is one rectangle, including the gap between lines,
+  // so the I-beam does not swap for the reticle on the way down.
+  // A single line stays tight to the glyphs; the empty tail after it does not.
+  function overTextLine(px, py) {
+    var el = document.elementFromPoint(px, py);
+    if (!el || !el.closest) return false;
+    var block = el.closest(blockSel);
+    if (!block || block.closest(interactiveSel)) return false;
+    var box = block.getBoundingClientRect();
+    if (px < box.left || px > box.right || py < box.top || py > box.bottom) return false;
+    var range = document.createRange();
+    try {
+      range.selectNodeContents(block);
+    } catch (err) {
+      return false;
+    }
+    var rects = range.getClientRects();
+    var lines = 0;
+    var i;
+    for (i = 0; i < rects.length; i++) {
+      if (rects[i].width >= 2 && rects[i].height >= 2) lines++;
+    }
+    if (lines > 1) return true;
+    for (i = 0; i < rects.length; i++) {
+      var r = rects[i];
+      if (r.width < 2 || r.height < 2) continue;
+      if (px >= r.left && px <= r.right && py >= r.top && py <= r.bottom) return true;
+    }
+    return false;
+  }
+
+  function mode(el) {
+    if (!el || !el.closest) return 'hud';
+    if (root.hasAttribute('data-td-shell-resizing')) return 'native';
+    if (el.closest('.td-filetree[data-td-filetree-dragging]')) return 'native';
+    if (el.closest('.td-shell-sidebar__resizer, .td-filetree__divider, .td-image-zoom__trigger')) return 'native';
+    if (el.closest(':disabled, [aria-disabled="true"]')) return 'native';
+    if (el.closest(interactiveSel)) return 'lock';
+    if (el.closest(fieldSel)) return 'native';
+    if (overTextLine(x, y)) return 'text';
+    return 'hud';
+  }
+
+  function apply(el) {
+    var next = mode(el);
+    var showHud = active && (next === 'hud' || next === 'lock');
+    if (showHud && cursor.classList.contains('is-off')) {
+      rx = x;
+      ry = y;
+    }
+    cursor.classList.toggle('is-off', !showHud);
+    root.classList.toggle('is-stark-locked', next === 'lock');
+    root.classList.toggle('is-stark-text', next === 'text');
+  }
+
+  function tick() {
+    rx += (x - rx) * 0.58;
+    ry += (y - ry) * 0.58;
+    core.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)';
+    ring.style.transform = 'translate3d(' + rx + 'px,' + ry + 'px,0)';
+    var dx = x - rx;
+    var dy = y - ry;
+    if (dx * dx + dy * dy > 0.16) raf = window.requestAnimationFrame(tick);
+    else raf = 0;
+  }
+
+  function kick() {
+    if (!raf) raf = window.requestAnimationFrame(tick);
+  }
+
+  function onMove(e) {
+    if (e.pointerType && e.pointerType !== 'mouse' && e.pointerType !== 'pen') return;
+    active = true;
+    x = e.clientX;
+    y = e.clientY;
+    apply(e.target);
+    kick();
+  }
+
+  function onOut(e) {
+    if (e.relatedTarget) return;
+    active = false;
+    cursor.classList.add('is-off');
+    root.classList.remove('is-stark-locked', 'is-stark-text');
+  }
+
+  document.addEventListener('pointermove', onMove, { passive: true });
+  document.addEventListener('mouseout', onOut);
+
+  function teardown() {
+    root.classList.remove('has-stark-cursor', 'is-stark-locked', 'is-stark-text');
+    if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
+    document.removeEventListener('pointermove', onMove);
+    document.removeEventListener('mouseout', onOut);
+    if (raf) window.cancelAnimationFrame(raf);
+    raf = 0;
+  }
+
+  function onPref() {
+    if (!allowed()) teardown();
+  }
+
+  fine.addEventListener('change', onPref);
+  reduce.addEventListener('change', onPref);
+  forced.addEventListener('change', onPref);
+})();
+</script>

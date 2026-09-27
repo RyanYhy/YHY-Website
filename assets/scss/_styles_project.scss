@@ -813,3 +813,163 @@ ul.td-checkbox-list {
     background: var(--td-brand-elev, var(--bs-tertiary-bg));
   }
 }
+
+// -- Stark HUD cursor ------------------------------------------------------
+//
+// A follower reticle, not a bitmap cursor. The script in
+// layouts/_partials/hooks/body-end.html adds `has-stark-cursor` only for a
+// fine pointer without reduced motion or forced colors. Until then the
+// system cursor stays.
+
+.td-stark-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+  pointer-events: none;
+  opacity: 1;
+
+  &.is-off,
+  &.is-off &__core,
+  &.is-off &__ring {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  &__core,
+  &__ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  // Slightly stronger than the first hairline, still a reticle:
+  // thin red ring, four short gold ticks, a small gold core.
+  --td-cursor-red: #c41e3a;
+  --td-cursor-gold: #d4a017;
+  // Ticks sit on warm paper. The core gold is too light there.
+  --td-cursor-tick: #8a4e00;
+
+  [data-bs-theme='dark'] & {
+    --td-cursor-red: #ff4d6a;
+    --td-cursor-gold: #f0c14a;
+    --td-cursor-tick: #f0c14a;
+  }
+
+  &__core {
+    width: 4px;
+    height: 4px;
+    margin: -2px 0 0 -2px;
+    border-radius: 50%;
+    background: var(--td-cursor-gold);
+    box-shadow: 0 0 6px color-mix(in srgb, var(--td-cursor-gold) 85%, transparent);
+  }
+
+  &__ring {
+    width: 28px;
+    height: 28px;
+    margin: -14px 0 0 -14px;
+  }
+
+  // Scale lives here so it does not fight the ring's translate or the ticks' rotate.
+  &__scale {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1.5px solid var(--td-cursor-red);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--td-cursor-red) 40%, transparent);
+    transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+  }
+
+  &__ticks {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: repeating-conic-gradient(
+      from -10deg,
+      var(--td-cursor-tick) 0 20deg,
+      transparent 20deg 90deg
+    );
+    -webkit-mask: radial-gradient(circle, transparent 62%, #000 72%);
+    mask: radial-gradient(circle, transparent 62%, #000 72%);
+    animation: td-stark-cursor-spin 8s linear infinite;
+  }
+}
+
+html.has-stark-cursor.is-stark-locked .td-stark-cursor__ticks {
+  animation-play-state: paused;
+}
+
+html.has-stark-cursor.is-stark-locked .td-stark-cursor__scale {
+  box-shadow: 0 0 12px color-mix(in srgb, var(--td-cursor-gold, #f0c14a) 65%, transparent);
+  transform: scale(1.18);
+}
+
+@keyframes td-stark-cursor-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html.has-stark-cursor,
+  html.has-stark-cursor * {
+    cursor: none !important;
+  }
+
+  // I-beam while the pointer is inside a line's text rectangle. The empty
+  // tail after that rectangle, and the gap between lines, keep the reticle.
+  html.has-stark-cursor.is-stark-text,
+  html.has-stark-cursor.is-stark-text * {
+    cursor: text !important;
+  }
+
+  html.has-stark-cursor:not(.is-stark-text),
+  html.has-stark-cursor:not(.is-stark-text) * {
+    cursor: none !important;
+  }
+
+  html.has-stark-cursor:not(.is-stark-text) :is(input, textarea, [contenteditable='true']),
+  html.has-stark-cursor:not(.is-stark-text) :is(input, textarea, [contenteditable='true']) * {
+    cursor: text !important;
+  }
+
+  // Links and buttons use the reticle instead of the system pointer.
+  html.has-stark-cursor :is(a, button, summary, [role='button'], [role='link']),
+  html.has-stark-cursor :is(a, button, summary, [role='button'], [role='link']) * {
+    cursor: none !important;
+  }
+
+  html.has-stark-cursor .td-shell-sidebar__resizer,
+  html.has-stark-cursor[data-td-shell-resizing],
+  html.has-stark-cursor[data-td-shell-resizing] *,
+  html.has-stark-cursor .td-filetree__divider,
+  html.has-stark-cursor .td-filetree[data-td-filetree-dragging],
+  html.has-stark-cursor .td-filetree[data-td-filetree-dragging] * {
+    cursor: col-resize !important;
+  }
+
+  html.has-stark-cursor .td-image-zoom__trigger,
+  html.has-stark-cursor .td-image-zoom__trigger * {
+    cursor: zoom-in !important;
+  }
+
+  html.has-stark-cursor :is(:disabled, [aria-disabled='true']) {
+    cursor: not-allowed !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .td-stark-cursor__ticks {
+    animation: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .td-stark-cursor {
+    display: none;
+  }
+}
