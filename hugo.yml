@@ -10,7 +10,6 @@ defaultContentLanguage: zh
 ignoreLogs:
   # Project-documentation pages intentionally override theme parameters.
   - warning-frontmatter-params-overrides # cSpell:disable-line
-  - giscus-not-configured
 
 # Allow iframe-hosted custom themes (for example, Giscus) to load during local previews.
 # These headers are only used by `hugo server`; they do not affect generated production files.
@@ -61,6 +60,12 @@ languages:
     hasCJKLanguage: true
     params:
       description: 笔记、项目与学习文档
+      time_format_default: 2006年1月2日
+      time_format_blog: 2006年1月2日
+      comments:
+        giscus:
+          ariaLabel: 评论
+          errorMessage: 评论加载失败，请稍后重试。
       ui:
         navbar_autohide: true
         command_palette:
@@ -97,6 +102,53 @@ languages:
           weight: 90
           params:
             icon: fa-brands fa-github
+  en:
+    label: English
+    locale: en-US
+    weight: 2
+    title: YHY Study Website
+    params:
+      description: Notes, projects, and learning documentation
+      comments:
+        giscus:
+          ariaLabel: Comments
+          errorMessage: Comments could not be loaded. Please try again later.
+      ui:
+        navbar_autohide: true
+        command_palette:
+          commands: []
+    menus:
+      main:
+        - identifier: experience
+          name: Experience
+          pageRef: /experience
+          weight: 20
+          params:
+            icon: fa-solid fa-briefcase
+        - identifier: learn
+          name: Learning
+          pageRef: /learn
+          weight: 30
+          params:
+            icon: fa-solid fa-book-open
+        - identifier: blog
+          name: Blog
+          pageRef: /blog
+          weight: 40
+          params:
+            icon: fa-solid fa-blog
+        - identifier: links
+          name: Links
+          pageRef: /links
+          weight: 50
+          params:
+            icon: fa-solid fa-link
+        - identifier: github
+          name: GitHub
+          url: https://github.com/RyanYhy/YHY-Website
+          weight: 90
+          params:
+            icon: fa-brands fa-github
 
 params:
   # Keep theme pin fields for CI release-pin check; no navbar version menu.
@@ -120,6 +172,24 @@ params:
   offline_search_summary_length: 70
   offline_search_max_results: 10
   page_width: normal
+  comments:
+    # Both hosts use the same content-tree term, independent of their URL paths.
+    enable: true
+    type: giscus
+    giscus:
+      repo: RyanYhy/my-project-docs-vercel
+      repoId: R_kgDOUXvkaw
+      category: Announcements
+      categoryId: DIC_kwDOUXvka84DGph2
+      mapping: specific
+      strict: 0
+      reactionsEnabled: 1
+      emitMetadata: 0
+      inputPosition: bottom
+      theme: auto
+      lightTheme: light
+      darkTheme: dark
+      loading: lazy
   ui:
     typography: technical
     blog_index_toggle: true
@@ -174,4 +244,3 @@ module:
   mounts:
     - source: content
       target: content
-      sites: { matrix: { languages: [zh] } }

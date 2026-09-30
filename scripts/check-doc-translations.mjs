@@ -47,7 +47,10 @@ function headings(markdown) {
 }
 
 function outputPath(source, language = null) {
-  const relative = path.relative(contentRoot, source).replace(/\.md$/, '');
+  const relative = path
+    .relative(contentRoot, source)
+    .replace(/\.en\.md$/, '')
+    .replace(/\.md$/, '');
   const parts = relative.split(path.sep);
   if (parts.at(-1) === 'index' || parts.at(-1) === '_index') parts.pop();
   const root = language ? path.join(publicRoot, language) : publicRoot;
@@ -56,27 +59,39 @@ function outputPath(source, language = null) {
 
 function renderedHeadingIds(file) {
   const html = readFileSync(file, 'utf8');
-  return [...html.matchAll(/<h([2-6])\s+id="([^"]+)"/g)].map(
-    ([, level, id]) => `${level}:${id}`,
+  return [...html.matchAll(/<h([2-6])\b[^>]*\bid=(?:"([^"]+)"|'([^']+)'|([^\s>]+))/g)].map(
+    ([, level, doubleQuoted, singleQuoted, unquoted]) =>
+      `${level}:${doubleQuoted ?? singleQuoted ?? unquoted}`,
   );
 }
 
-const bilingualScopes = ['docs', 'blog', 'book', 'case', 'authors', 'series'];
-const sources = [
-  path.join(contentRoot, '_index.md'),
-  ...bilingualScopes.flatMap((scope) => walk(path.join(contentRoot, scope))),
-]
-  .filter((file) => file.endsWith('.md') && !file.endsWith('.zh.md'))
+const requiredPairs = [
+  '_index.md',
+  'blog/_index.md',
+  'experience/_index.md',
+  'learn/_index.md',
+  'links.md',
+  'search.md',
+];
+const sources = walk(contentRoot)
+  .filter((file) => file.endsWith('.en.md'))
   .sort();
 const errors = [];
 let translated = 0;
 let headingCount = 0;
 
-for (const source of sources) {
-  const relative = path.relative(repoRoot, source);
-  const target = source.replace(/\.md$/, '.zh.md');
-  if (!existsSync(target)) {
-    errors.push(`${relative}: missing ${path.basename(target)}`);
+for (const relative of requiredPairs) {
+  const source = path.join(contentRoot, relative);
+  const target = source.replace(/\.md$/, '.en.md');
+  if (!existsSync(source)) errors.push(`content/${relative}: Chinese source is missing`);
+  if (!existsSync(target)) errors.push(`content/${relative}: English peer is missing`);
+}
+
+for (const target of sources) {
+  const relative = path.relative(repoRoot, target);
+  const source = target.replace(/\.en\.md$/, '.md');
+  if (!existsSync(source)) {
+    errors.push(`${relative}: missing Chinese source ${path.basename(source)}`);
     continue;
   }
 
@@ -95,7 +110,7 @@ for (const source of sources) {
   for (const [index, heading] of targetHeadings.entries()) {
     if (!heading.anchor) {
       errors.push(
-        `${relative}: translated heading ${index + 1} has no explicit ID`,
+        `${relative}: English heading ${index + 1} has no explicit ID`,
       );
     } else if (anchors.has(heading.anchor)) {
       errors.push(
@@ -109,21 +124,26 @@ for (const source of sources) {
   if (!publicRoot || source.includes(`${path.sep}includes${path.sep}`))
     continue;
   const sourceOutput = outputPath(source);
-  const targetOutput = outputPath(source, 'zh');
+  const targetOutput = outputPath(target, 'en');
   if (!existsSync(sourceOutput) || !existsSync(targetOutput)) {
-    errors.push(`${relative}: rendered English or Chinese page is missing`);
+    errors.push(`${relative}: rendered Chinese or English page is missing`);
     continue;
   }
 
   const sourceIds = renderedHeadingIds(sourceOutput);
   const targetIds = renderedHeadingIds(targetOutput);
+  if (targetIds.length < targetHeadings.length) {
+    errors.push(
+      `${relative}: fewer rendered heading IDs than source headings`,
+    );
+  }
   if (JSON.stringify(sourceIds) !== JSON.stringify(targetIds)) {
-    errors.push(`${relative}: rendered heading IDs differ between en and zh`);
+    errors.push(`${relative}: rendered heading IDs differ between zh and en`);
   }
 }
 
 console.log(
-  `Chinese translation coverage: ${translated}/${sources.length} files; ${headingCount} source headings checked.`,
+  `English translation coverage: ${translated}/${sources.length} files; ${headingCount} source headings checked.`,
 );
 if (errors.length) {
   console.error(errors.join('\n'));

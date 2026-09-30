@@ -12,7 +12,7 @@ tags: [Linux, SSH, UFW, 安全, systemd]
 {caption="从客户端到服务器：云安全组、UFW 与 sshd 一层层放行"}
 
 > [!NOTE] 虚构示例
-> 文中 IP 用 `ip1`、`ip2` 等占位（如 `ip1` = 服务器、`ip2` = 允许连入的来源）；域名 `xxx.xxx.com`、端口（如 `22222`）、用户名 `username` 亦为**演示占位**，非真实环境。请替换为你自己的值。
+> 文中 IP 用 `ip1`、`ip2` 等占位（如 `ip1` = 服务器、`ip2` = 允许连入的来源）；域名 `xxx.xxx.com`、端口（如 `22222`）、用户名 `username` 亦为 **演示占位**，非真实环境。请替换为你自己的值。
 
 ## SSH 登录四要素 {#four-factors}
 
@@ -77,17 +77,17 @@ chmod 600 ~/.ssh/id_ed25519
 | 服务器端 `~/.ssh/authorized_keys` | `600` |
 
 > [!WARNING] 公钥文件名
-> 上传到 VPS 的公钥**不要**带 `.txt` 等后缀；若有需重命名。服务器端公钥文件也建议 `chmod 600`。
+> 上传到 VPS 的公钥 **不要** 带 `.txt` 等后缀；若有需重命名。服务器端公钥文件也建议 `chmod 600`。
 
 ## 改 SSH 端口（含 systemd + UFW）{#change-port}
 
 **稳妥顺序**（先加新端口，验证后再删旧端口）：
 
-1. 在 `sshd_config` **追加**新 `Port`（暂时保留旧端口）
+1. 在 `sshd_config` **追加** 新 `Port`（暂时保留旧端口）
 1. `daemon-reload` + 重启 `ssh.socket` / `ssh.service`
 1. `sshd -T` 与 `ss` 确认新端口在监听
 1. UFW（及云安全组）放行新端口
-1. **新开一个终端**用新端口试连
+1. **新开一个终端** 用新端口试连
 1. 确认无误后再删旧端口规则、关 22
 {.steps}
 
@@ -184,7 +184,7 @@ sudo ufw limit 22222/tcp    # 对同一 IP 短时多次连接节流，减轻扫�
    - `PubkeyAuthentication yes`
    - `PasswordAuthentication no`
 
-改配置后同样要 reload/restart，并**保留一个已登录的会话**，防止把自己锁在外面。
+改配置后同样要 reload/restart，并 **保留一个已登录的会话**，防止把自己锁在外面。
 
 ### 密钥算法简记 {#key-types}
 

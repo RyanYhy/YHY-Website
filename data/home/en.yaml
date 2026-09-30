@@ -1,0 +1,53 @@
+sections:
+  - hero
+  - type: cards
+    key: highlights
+
+hero:
+  eyebrow: Learning · Projects · Notes
+  title_lines:
+    - words:
+        - { text: YHY Study Website }
+  lead: A personal site for project experience, topic-based study notes, and dated blog posts.
+  image:
+    light: images/ironman.webp
+    dark: images/ironman.webp
+    alt: Iron Man illustration
+  actions:
+    - label: Learning
+      url: learn/
+      icon: fa-solid fa-book-open
+      style: primary
+    - label: Projects
+      url: experience/
+      icon: fa-solid fa-briefcase
+      style: ghost
+    - label: Blog
+      url: blog/
+      icon: fa-solid fa-arrow-right
+      style: ghost
+    - label: Links
+      url: links/
+      icon: fa-solid fa-link
+      style: ghost
+
+highlights:
+  title: Four sections
+  desc: Each kind of content has its own entry point.
+  items:
+    - title: Experience
+      url: experience/
+      icon: fa-solid fa-briefcase
+      desc: Projects and competitions.
+    - title: Learning
+      url: learn/
+      icon: fa-solid fa-book-open
+      desc: Notes organized by topic.
+    - title: Blog
+      url: blog/
+      icon: fa-solid fa-blog
+      desc: Dated updates and reflections.
+    - title: Links
+      url: links/
+      icon: fa-solid fa-link
+      desc: Friends and recommended sites.

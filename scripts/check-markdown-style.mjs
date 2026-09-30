@@ -90,7 +90,8 @@ if (!existsSync(sourceRoot)) {
 }
 
 const files = walk(sourceRoot)
-  .filter((file) => file.endsWith('.zh.md'))
+  .filter((file) => file.endsWith('.en.md'))
+  .map((file) => file.replace(/\.en\.md$/, '.md'))
   .sort();
 let strongSpans = 0;
 let emphasisSpans = 0;

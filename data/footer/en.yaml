@@ -1,0 +1,24 @@
+brand:
+  name: YHY Study Website
+  logo: images/avatar.png
+  tagline: Notes · Projects · Blog
+  slogan: A personal learning and project site
+columns:
+  - title: Content
+    links:
+      - { label: Experience, url: experience/ }
+      - { label: Learning, url: learn/ }
+      - { label: Blog, url: blog/ }
+      - { label: Links, url: links/ }
+  - title: Site
+    links:
+      - {
+          label: GitHub,
+          url: 'https://github.com/RyanYhy/YHY-Website',
+          external: true,
+        }
+      - {
+          label: OINK theme,
+          url: 'https://oink.pgsty.com',
+          external: true,
+        }

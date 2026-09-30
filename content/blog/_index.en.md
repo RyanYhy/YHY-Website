@@ -1,8 +1,8 @@
 ---
-title: 博客
-linkTitle: 博客
-description: 按日期的更新与感想。
-search_keywords: [博客, 日记, 复盘]
+title: Blog
+linkTitle: Blog
+description: Dated updates and reflections.
+search_keywords: [blog, journal, retrospective]
 weight: 40
 type: blog
 icon: fa-solid fa-blog
@@ -23,4 +23,4 @@ cascade:
   search_boost: 0.9
 ---
 
-按日期写的更新与感想。需要长期查阅的主题笔记放在[学习](/learn/)。
+Dated updates and reflections. The current posts are available in both Chinese and English; use the language switcher to read either version.
