@@ -8,7 +8,7 @@ tags: [Hugo, Oink, Giscus, GitHub, comments]
 
 Hugo produces static HTML. It does not provide a server that accepts comments, a database, or a user system. Adding comments to a Hugo site with Oink therefore means delegating the comment interface to Giscus and storing the data in GitHub Discussions.
 
-This article separates the responsibilities of Hugo, Oink, Giscus, and GitHub Discussions, then follows the complete path from build time to a working comment section on this bilingual site with two deployments.
+When I added comments to the site, I wanted one conversation for everyone—whether they opened the Chinese or English page, on Vercel or GitHub Pages. Here's how the pieces work together to bring a comment onto a static blog page.
 
 ![Chinese illustration showing a static blog receiving comments through Giscus](giscus-comments-cover-zh.png)
 {caption="A static blog joins the conversation through Giscus and GitHub Discussions"}

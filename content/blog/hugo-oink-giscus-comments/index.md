@@ -8,7 +8,7 @@ tags: [Hugo, Oink, Giscus, GitHub, 评论系统]
 
 Hugo 生成的是静态 HTML，本身没有接收评论的服务器、数据库或用户系统。要给 Hugo + Oink 网站增加评论，关键不是“让 Hugo 保存评论”，而是把评论能力交给 Giscus，再由 GitHub Discussions 保存数据和管理身份。
 
-这篇笔记先拆开 Hugo、Oink、Giscus 和 GitHub Discussions 的职责，再结合本站的双语、双部署结构，说明评论区从构建到显示的完整链路。
+我给网站加评论时，最想解决的是一件事：不管读者打开中文还是英文、Vercel 还是 GitHub Pages，都能在同一个地方聊天。下面就看看这些工具是怎么配合的，一条留言又是怎么出现在静态博客里的。
 
 ![静态博客会聊天？留言由 Giscus 送往 GitHub 讨论区](giscus-comments-cover-zh.png)
 {caption="静态博客也能聊起来：Giscus 把留言接到 GitHub Discussions"}
