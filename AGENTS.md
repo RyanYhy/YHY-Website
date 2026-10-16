@@ -38,6 +38,18 @@ not a projection of a second theme-local document tree.
 
 ## Content conventions
 
+- Before turning personal notes into a blog, read `OBSIDIAN-TO-OINK.md` and
+  `writing-style.md`. The latter is the durable writing reference, not site
+  content; keep it at the repository root and synchronize it to the sibling.
+- Record explicit writing preferences separately from observations of original
+  notes. Update observations when new samples or corrections arrive; never use
+  generated drafts as evidence of the author's voice without user approval.
+- New blog bundles use lowercase English slugs, with `index.md` and the article's
+  images together. Keep preview screenshots and temporary scripts outside the
+  site repositories, under `../rubbish/`; remove them only with user approval.
+- Show the finished article and preview before requesting public publication.
+  A local draft, successful build, and public deployment are separate states.
+
 - Blog comment threads use the same Giscus discussion across Chinese and English
   pages and across both deployments. The stable discussion term is the
   language-neutral blog path, `/blog/<slug>/`; never derive it from the full
