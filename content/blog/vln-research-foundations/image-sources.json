@@ -1,0 +1,40 @@
+{
+  "article_date": "2026-10-15",
+  "materials_checked": "2026-10-17",
+  "images": [
+    {
+      "file": "cover.png",
+      "type": "generated_concept_illustration",
+      "generator": "Built-in image_gen",
+      "prompt": "Create a 16:9 wide finished raster header for a Chinese student's personal robotics research blog. Clean cheerful light hand-drawn watercolor illustration on a white background, rounded dark ink outlines, accents of sky blue, mint green, coral and yellow. Main headline in large readable Chinese exactly: \"机器人怎样听懂路线？\". Main scene: an appealing small wheeled indoor robot with a visible camera explores an open, clearly drawn cutaway apartment with hallway, living room, desk and bedroom doorway. A curved blue route runs through the actual hall and turns toward a yellow destination pin; it must pass through open doors and avoid walls and furniture. A speech bubble gives one short instruction in Chinese: \"穿过走廊，在桌边停下\". Beside the robot, three small visual elements show the closed loop with arrows: a camera observation of the hallway labeled \"观察\", a small thought bubble labeled \"理解\", and a forward/turn control labeled \"行动\". Keep the diagram conceptual, not a claimed experiment or benchmark. Include a small unobtrusive subtitle \"VLN · R2R-CE\". The robot and the visible indoor navigation scene should be the main subject. Leave generous margins; make Chinese labels legible and correctly spelled; friendly technical notebook aesthetic with uncluttered composition. No real IP addresses, no real domains, no passwords, no API keys, no real usernames, no terminal screenshots, no provider logos, no metrics or success-rate claims. No photography, no 3D render, no dark background. Produce the finished image only.",
+      "created": "2026-10-17",
+      "modified": false,
+      "sha256": "3F435FE96091357B6DDE686BC7720B9846454AF7E904062438CF4015D47CC2B2"
+    },
+    {
+      "file": "vlnce-environment.png",
+      "type": "official_research_illustration",
+      "creator": "Jacob Krantz, Erik Wijmans, Arjun Majumdar, Dhruv Batra, Stefan Lee",
+      "source_page": "https://jacobkrantz.github.io/vlnce/",
+      "original_asset": "https://jacobkrantz.github.io/vlnce/static/img/vlnce/vlnce-setting.png",
+      "retrieved": "2026-10-17",
+      "modified": false,
+      "scope": "The continuous-environment task setting in the original VLN-CE work; not the author's own experiment.",
+      "sha256": "973E59B17316C1F1B6AF5AB584032EA1BD10AD0983BAB19CDAFC1C1AB0FC7B87"
+    },
+    {
+      "file": "rxr-language-grounding.gif",
+      "type": "official_dataset_example",
+      "creator": "Room-Across-Room (RxR) authors, Google Research",
+      "source_page": "https://github.com/google-research-datasets/RxR",
+      "original_asset": "https://github.com/google-research-datasets/RxR/blob/main/merged.gif",
+      "retrieval_method": "GitHub public Git blob API",
+      "git_blob": "4c02e90bfe28f5053a29f3eeff5e09b644097d59",
+      "source_license_url": "https://github.com/google-research-datasets/RxR/blob/main/LICENSE",
+      "retrieved": "2026-10-17",
+      "modified": false,
+      "scope": "Original animated example aligning navigation instruction and pose trace, not the author's own experiment.",
+      "sha256": "3E0DF5D3740DF0C4CB785D14CDCB09E02FDA38A374DFB2993E9744C47FB343CB"
+    }
+  ]
+}
