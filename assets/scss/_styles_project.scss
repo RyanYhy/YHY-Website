@@ -3,6 +3,26 @@
 // Custom Docsy website styles below this point:
 @import 'blog';
 
+// Apply handwriting through the theme's text roles so display/brand lettering,
+// code/terminal fonts, and icon fonts keep their own font families.
+:root {
+  --bs-body-font-family: 'LXGW WenKai Screen', #{inspect($font-family-sans-serif)};
+  --td-ui-font-family: var(--bs-body-font-family);
+  --td-body-font-family: var(--td-ui-font-family);
+  --td-heading-font-family: var(--td-body-font-family);
+  --td-meta-font-family: var(--td-ui-font-family);
+}
+
+.handwritten {
+  font-family: var(--td-body-font-family);
+}
+
+// Preserve code even when an existing handwriting class is applied to it.
+:is(code, pre, kbd, samp).handwritten,
+:is(code, pre, kbd, samp) .handwritten {
+  font-family: var(--td-code-font-family, var(--bs-font-monospace));
+}
+
 // -- Stark brand ------------------------------------------------------------
 //
 // OINK's default palette is cool navy / sky. This site already uses an Iron

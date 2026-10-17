@@ -31,6 +31,24 @@ hugo server
 hugo --gc --minify
 ```
 
+## 全站手写字体
+
+全站正文、导航、目录、表格、普通标题及日期等辅助文字统一使用「霞鹜文楷屏幕
+阅读版」，通过 jsDelivr 加载固定版本 `lxgw-wenkai-screen-webfont@1.1.0`。
+首页主视觉、站点品牌等使用展示字体的艺术字保留原样；代码、终端和图标字体也
+保留原样。字体加载失败时回退到系统字体，不影响阅读。
+
+正文无需额外标记。已有的 `.handwritten` 块属性仍可使用，效果与普通正文一致：
+
+```markdown
+把学过的知识，慢慢变成自己的东西。
+{.handwritten}
+```
+
+`.handwritten` 可用于全站文字；其中的代码仍保留等宽字体。样式位于
+`assets/scss/_styles_project.scss`，字体加载位于
+`layouts/_partials/hooks/head-end.html`。两套部署保持相同规则。
+
 ## 双语与评论
 
 中文是默认语言，英文入口为 `/en/`。英文内容使用同目录的 `.en.md` 文件，
