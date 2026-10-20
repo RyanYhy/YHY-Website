@@ -6,9 +6,9 @@ brand:
 columns:
   - title: Content
     links:
-      - { label: Experience, url: experience/ }
-      - { label: Learning, url: learn/ }
+      - { label: About, url: about/ }
       - { label: Blog, url: blog/ }
+      - { label: Projects, url: experience/ }
       - { label: Links, url: links/ }
   - title: Site
     links:

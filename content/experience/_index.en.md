@@ -1,9 +1,9 @@
 ---
-title: Experience
-linkTitle: Experience
-description: Projects and competitions—what I built and what I learned.
+title: Projects
+linkTitle: Projects
+description: Projects I have participated in or studied in depth—practice and exploration.
 search_keywords: [experience, projects, competitions, portfolio]
-weight: 20
+weight: 30
 type: docs
 icon: fa-solid fa-briefcase
 sidebar_enabled: false
@@ -23,4 +23,4 @@ cascade:
   search_boost: 0.9
 ---
 
-Projects and competitions. Open an experience first, then browse its sections. English translations are being added gradually.
+Projects I have participated in or studied in depth. Open a project to browse its documentation. English translations are being added gradually.

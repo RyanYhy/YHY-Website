@@ -1,0 +1,62 @@
+{{- $p := .Params.profile -}}
+{{- $records := partial "about/records.html" . -}}
+{{- $data := merge $p (dict "records" $records "experience" .Params.experience "urls" (dict "projects" ("experience/" | relLangURL) "blog" ("blog/" | relLangURL) "about" ("about/" | relLangURL))) -}}
+<div class="ryr-about pixel-shell variant-b bots-static" data-about-stage>
+  <section class="composition terminal" data-about-terminal aria-labelledby="profile-name">
+    <div class="terminal-bar">
+      <span class="terminal-dot" aria-hidden="true"></span><span>yhy@explorer: ~</span>
+      <button class="stream-control" type="button" id="stream-control" lang="en" hidden>[skip]</button>
+      <button class="bot-motion-control" type="button" data-about-motion aria-pressed="false" aria-label="{{ $p.pause }}" data-pause="{{ $p.pause }}" data-resume="{{ $p.resume }}" lang="en" hidden>[pause bot]</button>
+    </div>
+    <div class="terminal-body">
+      <p class="command identity-command" aria-hidden="true">{{ partial "about/asset.html" "ryr-terminal" }} whoami</p>
+      <div class="identity">
+        <div>
+          <div class="brand-lockup">
+            <h1 class="wordmark" id="profile-name"><span class="sr-only">{{ $p.name }}</span>{{ partial "about/asset.html" "yhy" }}</h1>
+            <span class="brand-mascot" aria-hidden="true">{{ partial "about/asset.html" "ryr-primary" }}</span>
+          </div>
+          <div class="identity-role"><p class="role">{{ $p.role }}</p><span class="explorer">{{ $p.tagline }}</span></div>
+        </div>
+        <div class="shell-portrait">
+          <img class="avatar td-about__avatar" src="{{ $p.avatar | relURL }}" alt="{{ $p.avatar_alt }}" width="192" height="192" decoding="async">
+          {{ partial "about/asset.html" "portrait-ring" }}
+        </div>
+      </div>
+      <h2 class="headline" id="introduction">{{ range $i, $line := $p.headline }}{{ if $i }}<br>{{ end }}{{ $line }}{{ end }}</h2>
+      <p class="bio">{{ $p.bio }}</p>
+      <div class="actions" data-about-contact>
+        <nav class="page-actions" aria-label="{{ $p.actions_label }}">
+          <a class="primary" href="{{ "experience/" | relLangURL }}">{{ $p.projects }} <span aria-hidden="true">↗</span></a>
+          <a class="primary" href="{{ "blog/" | relLangURL }}">{{ $p.blog }} <span aria-hidden="true">↗</span></a>
+          <a class="primary" href="{{ "about/" | relLangURL }}">{{ $p.about }} <span aria-hidden="true">↗</span></a>
+          <a class="primary" href="{{ "links/" | relLangURL }}">{{ $p.links }} <span aria-hidden="true">↗</span></a>
+        </nav>
+        <div class="contact-icons">
+          <a class="contact-icon" href="{{ $p.github }}" aria-label="{{ $p.github_label }}" title="GitHub">{{ partial "about/asset.html" "github" }}</a>
+          <button class="contact-icon" type="button" data-about-email="{{ $p.email }}" aria-label="{{ $p.email_label }}" title="{{ $p.email_label }}" aria-describedby="about-copy-status" hidden>{{ partial "about/asset.html" "email" }}</button>
+        </div>
+        <p class="email-address" data-about-email-fallback>{{ $p.email }}</p>
+        <p class="copy-status" role="status" id="about-copy-status" aria-live="polite" aria-atomic="true"></p>
+      </div>
+      <div class="profile-content">{{ .Content }}</div>
+      <section class="interactive-shell" aria-labelledby="shell-title" hidden>
+        <div class="shell-heading">{{ partial "about/heading.html" (dict "label" "TERMINAL" "id" "shell-title") }}<span class="shell-path" aria-hidden="true">RyR@yhy:~</span></div>
+        <div class="reply-tools" lang="en"><p class="shell-hint" id="shell-hint">Type help. Tab completes commands.</p><button type="button" id="reply-skip" class="reply-skip" hidden>[skip output]</button></div>
+        <div class="shell-shortcuts" aria-label="{{ $p.quick_commands }}" lang="en">{{ range slice "hello" "help" "whoami" "experience" "projects" "contact" "clear" }}<button type="button" data-command="{{ . }}">{{ . }}</button>{{ end }}</div>
+        <div id="shell-output" class="shell-output" role="log" aria-live="off" aria-relevant="additions" aria-label="{{ $p.output_label }}" tabindex="0"></div>
+        <form class="shell-form" id="shell-form">
+          <label class="shell-prompt" for="shell-input"><span aria-hidden="true">~ $</span><span class="sr-only">{{ $p.input_label }}</span></label>
+          <input id="shell-input" name="command" type="text" placeholder="hello" autocomplete="off" autocapitalize="none" spellcheck="false" enterkeyhint="go" maxlength="160" aria-describedby="shell-hint shell-keys">
+          <span id="typing-companion" class="typing-companion prompt-companion" data-state="ready" aria-hidden="true">{{ partial "about/asset.html" "ryr-terminal" }}</span><span class="input-measure" id="input-measure" aria-hidden="true"></span>
+        </form>
+        <div class="shell-completions" id="shell-completions" role="group" aria-label="{{ $p.completion_label }}" hidden></div>
+        <p class="shell-keys" id="shell-keys" lang="en">TAB complete · ENTER run · ↑↓ history · ESC leave</p>
+        <p id="shell-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+      </section>
+    </div>
+  </section>
+</div>
+<script type="application/json" id="about-data">{{ $data | jsonify | safeJS }}</script>
+{{- $script := resources.Get "about.js" | minify | fingerprint -}}
+<script defer src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}"></script>

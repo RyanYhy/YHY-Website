@@ -4,27 +4,27 @@ sections:
     key: highlights
 
 hero:
-  eyebrow: Learning · Projects · Notes
+  eyebrow: Explore · Build · Write
   title_lines:
     - words:
         - { text: YHY Study Website }
-  lead: A personal site for project experience, topic-based study notes, and dated blog posts.
+  lead: A personal site for technical exploration, project practice, and writing.
   image:
     light: images/ironman.webp
     dark: images/ironman.webp
     alt: Iron Man illustration
   actions:
-    - label: Learning
-      url: learn/
-      icon: fa-solid fa-book-open
+    - label: About
+      url: about/
+      icon: fa-solid fa-user
       style: primary
+    - label: Blog
+      url: blog/
+      icon: fa-solid fa-blog
+      style: ghost
     - label: Projects
       url: experience/
       icon: fa-solid fa-briefcase
-      style: ghost
-    - label: Blog
-      url: blog/
-      icon: fa-solid fa-arrow-right
       style: ghost
     - label: Links
       url: links/
@@ -35,18 +35,18 @@ highlights:
   title: Four sections
   desc: Each kind of content has its own entry point.
   items:
-    - title: Experience
-      url: experience/
-      icon: fa-solid fa-briefcase
-      desc: Projects and competitions.
-    - title: Learning
-      url: learn/
-      icon: fa-solid fa-book-open
-      desc: Notes organized by topic.
+    - title: About
+      url: about/
+      icon: fa-solid fa-user
+      desc: Who I am and what I explore.
     - title: Blog
       url: blog/
       icon: fa-solid fa-blog
       desc: Dated updates and reflections.
+    - title: Projects
+      url: experience/
+      icon: fa-solid fa-briefcase
+      desc: Projects I participate in or study in depth.
     - title: Links
       url: links/
       icon: fa-solid fa-link

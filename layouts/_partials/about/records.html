@@ -1,0 +1,8 @@
+{{- $records := slice -}}
+{{- range .Params.records -}}
+  {{- $record := . -}}
+  {{- $target := $.Site.GetPage .page -}}
+  {{- if not $target -}}{{- $default := index hugo.Sites 0 -}}{{- $target = $default.GetPage .page -}}{{- end -}}
+  {{- with $target -}}{{- $records = $records | append (dict "title" $record.title "meta" $record.meta "url" .RelPermalink) -}}{{- end -}}
+{{- end -}}
+{{- return $records -}}

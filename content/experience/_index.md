@@ -1,9 +1,9 @@
 ---
-title: 经历
-linkTitle: 经历
-description: 项目与比赛——做过什么、学到什么。
+title: 项目
+linkTitle: 项目
+description: 参与或深入学习的项目——实践、理解与探索。
 search_keywords: [经历, 项目, 比赛, 作品集]
-weight: 20
+weight: 30
 type: docs
 icon: fa-solid fa-briefcase
 sidebar_enabled: false
@@ -23,4 +23,4 @@ cascade:
   search_boost: 0.9
 ---
 
-项目与比赛。先点进某一个经历，再看里面的分节。
+这里记录我参与或深入学习的项目。点进具体项目，查看介绍与分节文档。

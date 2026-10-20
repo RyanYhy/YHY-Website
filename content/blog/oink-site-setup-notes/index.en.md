@@ -196,4 +196,4 @@ The order is **add → commit → push**.
 
 The main idea is: **Hugo generates pages, Oink controls their appearance, and the content/ folders form the navigation tree**. Writing a blog post means adding front matter and Markdown, previewing with `hugo server`, and pushing. Put `{caption=...}` on its own line, and convert Obsidian's `==` and `[[links]]` to standard Markdown before publishing.
 
-For a more systematic introduction, read chapters 1–3 of the [Oink tutorial book](https://oink.pgsty.com/zh/book/). This site's [RAICOM documentation](/experience/2026-raicom/overview/) is a writing example in Chinese.
+For a more systematic introduction, read chapters 1–3 of the [Oink tutorial book](https://oink.pgsty.com/zh/book/). This site's [RAICOM documentation]({{< relref path="/experience/2026-raicom/overview" lang="zh" >}}) is a writing example in Chinese.

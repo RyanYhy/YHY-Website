@@ -1,0 +1,5 @@
+{{- $label := .Get "label" -}}
+<section class="{{ if eq $label "EXPERIENCE" }}experience-section{{ else }}terminal-section{{ end }}" aria-labelledby="{{ .Get "id" }}">
+{{ partial "about/heading.html" (dict "label" $label "id" (.Get "id")) }}
+{{ .Inner | markdownify }}
+</section>

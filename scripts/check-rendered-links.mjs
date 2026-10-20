@@ -9,6 +9,8 @@ const publicRoot = path.resolve(process.argv[2] ?? 'public');
 const localOrigin = 'https://oink.invalid';
 const documentCache = new Map();
 const failures = new Map();
+let basePath = '/';
+let siteOrigin = localOrigin;
 
 function walk(dir) {
   return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -25,15 +27,15 @@ function inScope(file) {
   const name = relative(file);
   return (
     name === 'index.html' ||
-    name === 'zh/index.html' ||
-    /^(?:zh\/)?(?:docs|blog|about|examples|community)\/.*\.html$/.test(name)
+    /^(?:en|zh)\/index\.html$/.test(name) ||
+    /^(?:(?:en|zh)\/)?(?:docs|blog|about|experience|links|search|examples|community)\/.*\.html$/.test(name)
   );
 }
 
 function pageUrl(file) {
   const name = relative(file);
-  if (name === 'index.html') return '/';
-  return `/${name.replace(/index\.html$/, '')}`;
+  if (name === 'index.html') return basePath;
+  return `${basePath}${name.replace(/index\.html$/, '')}`;
 }
 
 function documentFor(file) {
@@ -54,6 +56,10 @@ function localFile(pathname) {
     return null;
   }
 
+  if (basePath !== '/') {
+    if (!decoded.startsWith(basePath)) return null;
+    decoded = `/${decoded.slice(basePath.length)}`;
+  }
   const item = path.resolve(publicRoot, `.${decoded}`);
   if (item !== publicRoot && !item.startsWith(`${publicRoot}${path.sep}`)) {
     return null;
@@ -74,6 +80,14 @@ function record(kind, target, source) {
 if (!existsSync(publicRoot)) {
   console.error(`Rendered site does not exist: ${publicRoot}`);
   process.exit(1);
+}
+
+const canonical = documentFor(path.join(publicRoot, 'index.html'))
+  .querySelector('link[rel="canonical"]')?.getAttribute('href');
+if (canonical) {
+  const siteURL = new URL(canonical, localOrigin);
+  basePath = siteURL.pathname;
+  siteOrigin = siteURL.origin;
 }
 
 const pages = walk(publicRoot)
@@ -100,7 +114,7 @@ for (const sourceFile of pages) {
     }
 
     if (!['http:', 'https:'].includes(url.protocol)) continue;
-    if (!['oink.invalid', 'localhost', '127.0.0.1'].includes(url.hostname)) {
+    if (![localOrigin, siteOrigin].includes(url.origin)) {
       continue;
     }
 

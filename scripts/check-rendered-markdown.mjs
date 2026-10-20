@@ -16,7 +16,7 @@ const rules = [
   {
     kind: 'emphasis',
     pattern:
-      /(?<!\*)\*[^*\n]*(?:\p{Script=Han}|\s)[^*\n]*\*(?!\*)|_[^_\n]*(?:\p{Script=Han}|\s)[^_\n]*_/u,
+      /(?<!\*)\*[^*\n]*(?:\p{Script=Han}|\s)[^*\n]*\*(?!\*)|(?<![\p{L}\p{N}_])_[^_\n]*(?:\p{Script=Han}|\s)[^_\n]*_(?![\p{L}\p{N}_])/u,
   },
   { kind: 'inline code', pattern: /`[^`\n]+`/ },
   {
@@ -52,8 +52,8 @@ function inScope(file) {
   if (name.includes('/_print/') || /\/page\/\d+\//.test(name)) return false;
   return (
     name === 'index.html' ||
-    name === 'zh/index.html' ||
-    /^(?:zh\/)?(?:docs|blog|about|examples|community|project|tests)\/.*\.html$/.test(
+    /^(?:en|zh)\/index\.html$/.test(name) ||
+    /^(?:(?:en|zh)\/)?(?:docs|blog|about|experience|links|examples|community|project|tests)\/.*\.html$/.test(
       name,
     )
   );
@@ -90,7 +90,7 @@ let textNodes = 0;
 for (const sourceFile of pages) {
   const source = pageUrl(sourceFile);
   const document = new JSDOM(readFileSync(sourceFile, 'utf8')).window.document;
-  const contentRoots = document.querySelectorAll('.td-content');
+  const contentRoots = document.querySelectorAll('.td-content, .ryr-about .profile-content, .about-text-panel, .td-about__copy, .td-about__terminal-source');
   if (!contentRoots.length) continue;
   contentPages += 1;
 

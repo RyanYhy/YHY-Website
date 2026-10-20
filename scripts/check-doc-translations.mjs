@@ -69,7 +69,7 @@ const requiredPairs = [
   '_index.md',
   'blog/_index.md',
   'experience/_index.md',
-  'learn/_index.md',
+  'about.md',
   'links.md',
   'search.md',
 ];

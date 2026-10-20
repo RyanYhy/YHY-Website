@@ -4,27 +4,27 @@ sections:
     key: highlights
 
 hero:
-  eyebrow: 学习 · 项目 · 笔记
+  eyebrow: 探索 · 实践 · 记录
   title_lines:
     - words:
         - { text: YHY Study Website }
-  lead: 个人站点：经历介绍、主题学习笔记，以及按日期的博客。
+  lead: 个人站点：记录技术探索、项目实践与学习思考。
   image:
     light: images/ironman.webp
     dark: images/ironman.webp
     alt: 钢铁侠插图
   actions:
-    - label: 学习
-      url: learn/
-      icon: fa-solid fa-book-open
+    - label: 关于
+      url: about/
+      icon: fa-solid fa-user
       style: primary
+    - label: 博客
+      url: blog/
+      icon: fa-solid fa-blog
+      style: ghost
     - label: 项目
       url: experience/
       icon: fa-solid fa-briefcase
-      style: ghost
-    - label: 博客
-      url: blog/
-      icon: fa-solid fa-arrow-right
       style: ghost
     - label: 友链
       url: links/
@@ -35,19 +35,19 @@ highlights:
   title: 四个栏目
   desc: 不同类型的内容各有入口。
   items:
-    - title: 经历
-      url: experience/
-      icon: fa-solid fa-briefcase
-      desc: 项目与比赛介绍。
-    - title: 学习
-      url: learn/
-      icon: fa-solid fa-book-open
-      desc: 按主题整理的笔记。
+    - title: 关于
+      url: about/
+      icon: fa-solid fa-user
+      desc: 个人介绍与技术兴趣。
     - title: 博客
       url: blog/
       icon: fa-solid fa-blog
-      desc: 按日期的更新与感想。
+      desc: 学习记录、技术探索与感想。
+    - title: 项目
+      url: experience/
+      icon: fa-solid fa-briefcase
+      desc: 参与或深入学习的项目。
     - title: 友链
       url: links/
       icon: fa-solid fa-link
-      desc: 友情链接。
+      desc: 友情链接与推荐站点。

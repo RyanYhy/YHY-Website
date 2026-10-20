@@ -1,0 +1,2 @@
+{{- $asset := resources.Get (printf "about/%s.svg" .) -}}
+{{- $asset.Content | safeHTML -}}

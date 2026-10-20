@@ -6,9 +6,9 @@ brand:
 columns:
   - title: 内容
     links:
-      - { label: 经历, url: experience/ }
-      - { label: 学习, url: learn/ }
+      - { label: 关于, url: about/ }
       - { label: 博客, url: blog/ }
+      - { label: 项目, url: experience/ }
       - { label: 友链, url: links/ }
   - title: 站点
     links:

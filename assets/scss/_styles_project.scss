@@ -2,6 +2,7 @@
 
 // Custom Docsy website styles below this point:
 @import 'blog';
+@import 'about';
 
 // Apply handwriting through the theme's text roles so display/brand lettering,
 // code/terminal fonts, and icon fonts keep their own font families.
@@ -21,6 +22,21 @@
 :is(code, pre, kbd, samp).handwritten,
 :is(code, pre, kbd, samp) .handwritten {
   font-family: var(--td-code-font-family, var(--bs-font-monospace));
+}
+
+// WenKai's smaller apparent size needs more room for long blog articles.
+.td-blog.td-page .td-content {
+  font-size: 1.125rem;
+  line-height: 1.9;
+
+  > .lead {
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 1.25rem;
+  }
 }
 
 // -- Stark brand ------------------------------------------------------------

@@ -1,0 +1,5 @@
+<div class="project-records">
+{{- range partial "about/records.html" .Page }}
+<a class="record" href="{{ .url }}"><span class="record-title">{{ .title }}<span class="record-arrow" aria-hidden="true">↗</span></span><span class="record-meta">{{ .meta }}</span></a>
+{{- end }}
+</div>

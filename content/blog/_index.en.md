@@ -3,7 +3,7 @@ title: Blog
 linkTitle: Blog
 description: Dated updates and reflections.
 search_keywords: [blog, journal, retrospective]
-weight: 40
+weight: 20
 type: blog
 icon: fa-solid fa-blog
 sidebar_enabled: false

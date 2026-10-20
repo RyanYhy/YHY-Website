@@ -72,28 +72,28 @@ languages:
           commands: []
     menus:
       main:
-        - identifier: experience
-          name: 经历
-          pageRef: /experience
-          weight: 20
+        - identifier: about
+          name: 关于
+          pageRef: /about
+          weight: 10
           params:
-            icon: fa-solid fa-briefcase
-        - identifier: learn
-          name: 学习
-          pageRef: /learn
-          weight: 30
-          params:
-            icon: fa-solid fa-book-open
+            icon: fa-solid fa-user
         - identifier: blog
           name: 博客
           pageRef: /blog
-          weight: 40
+          weight: 20
           params:
             icon: fa-solid fa-blog
+        - identifier: experience
+          name: 项目
+          pageRef: /experience
+          weight: 30
+          params:
+            icon: fa-solid fa-briefcase
         - identifier: links
           name: 友链
           pageRef: /links
-          weight: 50
+          weight: 40
           params:
             icon: fa-solid fa-link
         - identifier: github
@@ -119,28 +119,28 @@ languages:
           commands: []
     menus:
       main:
-        - identifier: experience
-          name: Experience
-          pageRef: /experience
-          weight: 20
+        - identifier: about
+          name: About
+          pageRef: /about
+          weight: 10
           params:
-            icon: fa-solid fa-briefcase
-        - identifier: learn
-          name: Learning
-          pageRef: /learn
-          weight: 30
-          params:
-            icon: fa-solid fa-book-open
+            icon: fa-solid fa-user
         - identifier: blog
           name: Blog
           pageRef: /blog
-          weight: 40
+          weight: 20
           params:
             icon: fa-solid fa-blog
+        - identifier: experience
+          name: Projects
+          pageRef: /experience
+          weight: 30
+          params:
+            icon: fa-solid fa-briefcase
         - identifier: links
           name: Links
           pageRef: /links
-          weight: 50
+          weight: 40
           params:
             icon: fa-solid fa-link
         - identifier: github

@@ -196,4 +196,4 @@ git push origin main
 
 搭 Oink 站可以记一条主线：**Hugo 生成页面，Oink 管样式，content/ 文件夹就是导航树**。写博客 = front matter + Markdown 正文 + 本地 `hugo server` + push。图注记得换行写 `{caption=...}`；Obsidian 的 `==` 和 `[[链接]]` 发布前要改成标准 Markdown。
 
-更系统的阅读顺序仍推荐 [Oink 教程书](https://oink.pgsty.com/zh/book/) 第 1–3 章；本站 [RAICOM 文档](/experience/2026-raicom/overview/) 可作为写法范例对照。
+更系统的阅读顺序仍推荐 [Oink 教程书](https://oink.pgsty.com/zh/book/) 第 1–3 章；本站 [RAICOM 文档]({{< relref path="/experience/2026-raicom/overview" lang="zh" >}}) 可作为写法范例对照。

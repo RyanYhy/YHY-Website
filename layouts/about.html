@@ -1,0 +1,41 @@
+{{ define "main" }}
+{{ $p := .Params.profile }}
+{{ $source := index hugo.Sites 0 }}
+{{ $blogCount := len (where $source.RegularPages "Section" "blog") }}
+{{ $projectCount := 0 }}
+{{ with $source.GetPage "/experience" }}{{ $projectCount = len .Pages }}{{ end }}
+<div class="about-notes">
+  <div class="about-showcase">
+    <section class="about-identity" aria-labelledby="profile-name">
+      <div class="about-portrait"><img src="{{ $p.avatar | relURL }}" alt="{{ $p.avatar_alt }}" width="360" height="360" fetchpriority="high" decoding="async"></div>
+      <div class="about-name-row"><h1 id="profile-name">{{ $p.name }}</h1><span lang="en">Explorer</span></div>
+      <nav class="about-stats" aria-label="{{ $p.stats_label }}">
+        <a href="{{ "blog/" | relLangURL }}"><span class="about-stat-value">{{ $blogCount }}</span><span>{{ $p.blog_label }}</span></a>
+        <a href="{{ "experience/" | relLangURL }}"><span class="about-stat-value">{{ $projectCount }}</span><span>{{ $p.projects_label }}</span></a>
+        <a href="{{ "tags/" | relLangURL }}"><span class="about-stat-value">{{ len $source.Taxonomies.tags }}</span><span>{{ $p.tags_label }}</span></a>
+      </nav>
+      <div class="about-contacts">
+        <a class="about-contact-icon" href="{{ $p.github }}" aria-label="{{ $p.github_label }}" title="GitHub">{{ partial "about/asset.html" "github" }}</a>
+        <button class="about-contact-icon" type="button" data-contact-email="{{ $p.email }}" aria-label="{{ $p.email_label }}" title="{{ $p.email_label }}" aria-describedby="about-email-status" hidden>{{ partial "about/asset.html" "email" }}</button>
+        <p class="about-email-fallback" data-contact-fallback>{{ $p.email }}</p>
+        <p class="about-email-status" id="about-email-status" role="status" aria-live="polite" aria-atomic="true"></p>
+      </div>
+      <article class="about-text-panel" aria-labelledby="introduction"><p class="about-eyebrow" lang="en">A NOTE ABOUT ME</p>{{ .Content }}</article>
+    </section>
+    <section class="about-robot-stage" aria-label="{{ $p.robot_section }}">
+      <p class="about-eyebrow" lang="en">RYR / PERSONAL COMPANION</p>
+      <div class="about-robot-space">
+        <span class="about-orbit" aria-hidden="true"></span>
+        <button class="about-robot" type="button" data-ryr-button aria-label="{{ $p.robot_label }}" aria-describedby="ryr-hint" disabled>{{ partial "about/asset.html" "ryr-primary" }}</button>
+      </div>
+      <div class="about-robot-caption">
+        <p id="ryr-hint">{{ $p.robot_hint }}</p>
+        <p class="about-robot-reply" role="status" aria-live="polite" aria-atomic="true" data-ryr-status>{{ $p.robot_idle }}</p>
+      </div>
+    </section>
+  </div>
+</div>
+<script type="application/json" id="about-page-data">{{ dict "greetings" $p.greetings "copied" $p.copied "copy_failed" $p.copy_failed | jsonify | safeJS }}</script>
+{{ $script := resources.Get "about-page.js" | minify | fingerprint }}
+<script defer src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}"></script>
+{{ end }}

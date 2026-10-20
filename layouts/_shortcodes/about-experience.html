@@ -1,0 +1,9 @@
+<ol class="experience-list">
+{{ range .Page.Params.experience }}
+  <li class="experience-entry">
+    <span class="experience-period" lang="en">{{ .period }}</span>
+    <div class="experience-copy"><h3>{{ .title }}</h3>{{ with .detail }}<p>{{ . }}</p>{{ end }}</div>
+    {{ with .award }}<span class="experience-award">{{ . }}</span>{{ end }}
+  </li>
+{{ end }}
+</ol>
