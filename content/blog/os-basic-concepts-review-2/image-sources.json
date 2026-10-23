@@ -1,0 +1,13 @@
+{
+  "createdAt": "2026-10-21",
+  "images": [
+    {
+      "file": "cover.png",
+      "source": "AI-generated with the built-in image_gen tool",
+      "purpose": "CPU scheduling and time-sharing concept illustration",
+      "sha256": "AE2568858DEFDA449436E2469D8C4D708D92B69C3CAC03C759FB5E93FF3173FC",
+      "modified": false,
+      "prompt": "A clean, lightly hand-drawn raster illustration for a Chinese operating systems study blog, wide 16:9 composition. A small CPU chip is a service counter in the center-right. On the left, colorful rectangular job tickets queue on three horizontal tracks, with one ticket moving toward the CPU and another looping back to the queue beside a simple clock. Visually convey sharing CPU time, ready queues, and time slices, not an exact algorithm execution trace. White and light neutral background, restrained teal, coral-red, mustard and graphite accents, fine pencil-like outlines, subtle watercolor texture, crisp readable elements, friendly but not childish. Large readable Chinese title at top: \"CPU 轮到谁？\". Only three small labels: \"就绪队列\", \"时间片\", \"CPU\". Plenty of breathing room; no dense text, no tables, no screenshots, no logos, no real IP addresses or domains, no passwords, API keys, personal names, or other sensitive information. Do not use animals or mascots. This is a blog cover illustration, not a website UI mockup. Produce a wide 16:9 bitmap image."
+    }
+  ]
+}
