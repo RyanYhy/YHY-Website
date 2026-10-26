@@ -1,0 +1,55 @@
+// Geometry only: retain each page's palette, typography and component finish.
+.td-profile-page .ryr-about {
+  --profile-inset: clamp(26px, 3vw, 48px);
+
+  .terminal-bar { padding-inline: var(--profile-inset); }
+  .terminal-body { padding-inline: var(--profile-inset); }
+
+  // Equal columns keep the four entry points on one rhythm in both languages.
+  .page-actions {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .page-actions .primary {
+    justify-content: space-between;
+    > span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: none;
+      width: 1em;
+      line-height: 1;
+    }
+  }
+  .contact-icon { flex: none; }
+  .record-arrow { flex: none; }
+
+  @media (max-width: 767px) {
+    .page-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 600px) {
+    --profile-inset: 21px;
+  }
+}
+
+.td-about-page {
+  // Portrait, name, statistics, contacts and note now share one left edge.
+  .about-portrait { margin-inline: 0; }
+  .about-contacts { align-items: center; }
+  .about-contact-icon { flex: none; }
+}
+
+// Font Awesome glyph widths vary; give each navigation icon the same box.
+.td-site-header .nav-link > i[aria-hidden='true'] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+}
+
+// Multi-line titles keep their icon on the first line, not halfway down the text.
+.td-content-card__head { align-items: baseline; }
+.td-content-card__icon { flex: none; }

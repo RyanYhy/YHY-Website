@@ -27,7 +27,7 @@ for(const locale of locales){
    await expect(actions).toHaveCount(4);
    const prefix=locale.name==='en'?'en/':'';
    expect(await actions.evaluateAll(links=>links.map(link=>new URL(link.href).pathname))).toEqual(['experience/','blog/','about/','links/'].map(route=>new URL(prefix+route,baseURL).pathname));
-   expect((await actions.allTextContents()).map(text=>text.replace('↗','').trim())).toEqual(locale.name==='zh'?['查看项目','博客','关于','友链']:['View projects','Blog','About','Links']);
+   expect((await actions.allTextContents()).map(text=>text.replace('↗','').trim())).toEqual(locale.name==='zh'?['项目','博客','关于','友链']:['Projects','Blog','About','Links']);
    await expect(page.locator('.record')).toHaveCount(2);
    for(const href of await page.locator('.record').evaluateAll(links=>links.map(link=>link.href)))expect((await page.request.get(href)).status()).toBe(200);
    const github=page.locator('.contact-icon[href]');await expect(github).toHaveAttribute('href','https://github.com/RyanYhy');
@@ -60,14 +60,13 @@ for(const locale of locales){
  });
 }
 
-test('six poses, whole-body rock, pause and idle hop',async({page})=>{
+test('six poses, whole-body rock and idle hop without header controls',async({page})=>{
  await page.goto('./');await ready(page);
  const mascot=page.locator('.brand-mascot');await expect(mascot.locator('.hero-frame')).toHaveCount(6);
  expect(await mascot.locator('svg').evaluate(el=>getComputedStyle(el).animationName)).toBe('hero-run-rock');
  expect(await page.locator('.prompt-companion svg').evaluate(el=>getComputedStyle(el).animationName)).toBe('bot-idle-hop');
- const toggle=page.locator('[data-about-motion]');await toggle.click();await expect(toggle).toHaveAttribute('aria-pressed','true');
- expect(await mascot.evaluate(el=>el.getAnimations({subtree:true}).every(a=>a.playState==='paused'))).toBe(true);
- await toggle.click();expect(await mascot.evaluate(el=>el.getAnimations({subtree:true}).some(a=>a.playState==='running'))).toBe(true);
+ await expect(page.locator('[data-about-motion],#stream-control')).toHaveCount(0);
+ expect(await mascot.evaluate(el=>el.getAnimations({subtree:true}).some(a=>a.playState==='running'))).toBe(true);
 });
 test('clear cancels current and queued results; no late output',async({page})=>{
  await page.goto('./');await ready(page);const input=page.locator('#shell-input');
@@ -78,7 +77,7 @@ test('clear cancels current and queued results; no late output',async({page})=>{
 test('reduced motion and forced colors immediately reveal content without animation',async({page})=>{
  for(const media of [{reducedMotion:'reduce'},{reducedMotion:'no-preference',forcedColors:'active'}]){
   await page.emulateMedia(media);await page.goto('en/');await ready(page);
-  await expect(page.locator('.ryr-about')).toHaveClass(/bots-static/);await expect(page.locator('[data-about-motion]')).toBeHidden();
+  await expect(page.locator('.ryr-about')).toHaveClass(/bots-static/);await expect(page.locator('[data-about-motion],#stream-control')).toHaveCount(0);
   expect(await page.locator('.brand-mascot').evaluate(el=>el.getAnimations({subtree:true}).length)).toBe(0);
   await page.locator('#shell-input').fill('hello');await page.locator('#shell-input').press('Enter');await expect(page.locator('.shell-reply')).toContainText("Hello! I'm RyR");
  }

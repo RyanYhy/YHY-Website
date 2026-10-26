@@ -13,7 +13,8 @@
   {{ $hasSidebar := partial "shell/sidebar-enabled.html" . -}}
   {{ $navbar := partial "shell/navbar-enabled.html" . -}}
   {{ $pageWidth := partial "shell/page-width.html" . -}}
-  <body class="td-{{ .Kind }} td-shell-chrome{{ if $navbar }} td-shell-chrome--navbar{{ end }}{{ with .Page.Params.body_class }} {{ . }}{{ end }}">
+  {{ $projectPage := eq .Section "experience" -}}
+  <body class="td-{{ .Kind }} td-shell-chrome{{ if $projectPage }} td-project-page{{ end }}{{ if $navbar }} td-shell-chrome--navbar{{ end }}{{ with .Page.Params.body_class }} {{ . }}{{ end }}">
     {{ partial "skip-link.html" . }}
     {{ if $navbar }}{{ partial "navbar.html" . }}{{ else }}{{ partial "shell/subnav.html" . }}{{ end }}
     <div class="container-fluid td-outer">
@@ -29,12 +30,15 @@
         {{ $parentBack := partial "parent-back-card.html" . -}}
         {{ $hasParentBack := strings.ContainsNonSpace $parentBack -}}
         <main id="td-main-content" class="td-shell-main{{ if $hasParentBack }} td-shell-main--parent-back{{ end }}" tabindex="-1">
-          {{ if $hasParentBack -}}
+          {{ if and $hasParentBack (not $projectPage) -}}
           <div class="td-parent-back-rail d-print-none">
             {{ $parentBack }}
           </div>
           {{- end }}
           <article class="td-shell-article">
+            {{ if and $hasParentBack $projectPage -}}
+            <div class="td-parent-back-rail d-print-none">{{ $parentBack }}</div>
+            {{- end }}
             {{ partial "version-banner.html" . }}
             {{ $crumbs := partial "shell/breadcrumb-enabled.html" . -}}
             {{ $actionsHTML := partial "actions/title-menu.html" . -}}

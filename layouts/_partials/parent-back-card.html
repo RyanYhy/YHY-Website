@@ -10,11 +10,17 @@
 {{- end -}}
 {{- if and $enabled .Parent (not .Parent.IsHome) -}}
   {{- $parent := .Parent -}}
+  {{- $label := "返回上一级" -}}
+  {{- $accessibleLabel := printf "返回 %s" ($parent.LinkTitle | default $parent.Title) -}}
+  {{- if and (eq .Section "experience") (eq .Language.Lang "en") -}}
+    {{- $label = "Back to parent" -}}
+    {{- $accessibleLabel = printf "Back to %s" ($parent.LinkTitle | default $parent.Title) -}}
+  {{- end -}}
   <a class="td-parent-back d-print-none" href="{{ $parent.RelPermalink }}"
-     aria-label="返回 {{ $parent.LinkTitle | default $parent.Title }}">
+     aria-label="{{ $accessibleLabel }}">
     <span class="td-parent-back__arrow" aria-hidden="true">←</span>
     <span class="td-parent-back__body">
-      <span class="td-parent-back__label">返回上一级</span>
+      <span class="td-parent-back__label">{{ $label }}</span>
       <span class="td-parent-back__title">{{ $parent.LinkTitle | default $parent.Title }}</span>
     </span>
   </a>

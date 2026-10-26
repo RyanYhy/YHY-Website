@@ -18,7 +18,7 @@ profile:
   email_label: "Copy email address"
   copied: "Email address copied"
   failed: "Unable to copy automatically. Select the email to copy it manually."
-  projects: "View projects"
+  projects: "Projects"
   blog: "Blog"
   about: "About"
   links: "Links"

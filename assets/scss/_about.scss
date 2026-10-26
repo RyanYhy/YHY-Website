@@ -3,7 +3,30 @@
   --about-paper: #f6efe6;
   background: var(--about-paper);
   .td-default { padding: 0; }
-  .td-main { width: 100%; }
+  .td-main {
+    --crt-line: rgba(41, 37, 42, .075);
+    --crt-edge: rgba(41, 37, 42, .06);
+    width: 100%;
+    position: relative;
+    isolation: isolate;
+    // One static CRT layer spans the home content, including its paper margins.
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      pointer-events: none;
+    }
+    &::before {
+      background: repeating-linear-gradient(to bottom,
+        var(--crt-line) 0, var(--crt-line) 1px,
+        transparent 1px, transparent 3px);
+    }
+    &::after {
+      background: radial-gradient(ellipse at center,
+        transparent 45%, var(--crt-edge) 100%);
+    }
+  }
 }
 [data-bs-theme='dark'] .td-profile-page { --about-paper: #101012; }
 
@@ -262,6 +285,10 @@
     --code-muted: #625a61;
     --code-rule: #d6cec5;
     --accent: #97223e;
+    --key-surface: #f0ece5;
+    --key-rule: #c9bfb5;
+    --key-highlight: rgba(255, 255, 255, .8);
+    --key-shade: rgba(41, 37, 42, .12);
     .identity-command, .experience-award, .record-arrow { color: var(--accent); }
     .identity-command .bot-outline path { fill: #8c7781; }
   }
@@ -375,4 +402,73 @@
   .td-about-page { --about-paper:Canvas; --about-text:CanvasText; --about-muted:CanvasText; --about-panel:Canvas; --about-border:CanvasText; --about-accent:LinkText; }
   .td-about-page .about-text-panel { border: 2px solid CanvasText; }
   [data-bs-theme='light'] .td-profile-page .ryr-about, [data-bs-theme='light'] .td-profile-page .ryr-about .interactive-shell { --code:Canvas; --code-ink:CanvasText; --code-muted:CanvasText; --code-rule:CanvasText; --accent:LinkText; }
+}
+
+[data-bs-theme='dark'] .td-profile-page .td-main {
+  --crt-line: rgba(233, 228, 233, .075);
+  --crt-edge: rgba(0, 0, 0, .14);
+}
+
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  .td-profile-page .td-main {
+    &::before, &::after { display: none; }
+  }
+}
+
+// Pixel press feedback is limited to the four home entry points.
+.td-profile-page .ryr-about {
+  .page-actions .primary {
+    --press-accent: #97223e;
+    border: 1px solid var(--key-rule, var(--code-rule));
+    border-radius: 1px;
+    background: var(--key-surface, var(--code));
+    color: var(--code-ink);
+    box-shadow:
+      5px 5px 0 var(--press-accent),
+      inset 1px 1px 0 var(--key-highlight, rgba(255, 255, 255, .12)),
+      inset -1px -1px 0 var(--key-shade, rgba(0, 0, 0, .24));
+    transition: none;
+
+    &:hover { outline: 1px solid var(--press-accent); outline-offset: 0; }
+    &:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+    &:active {
+      transform: translate(3px, 3px);
+      box-shadow:
+        2px 2px 0 var(--press-accent),
+        inset 1px 1px 0 var(--key-shade, rgba(0, 0, 0, .24));
+    }
+  }
+  .page-actions .primary > span { color: var(--accent); }
+
+  .record-arrow { color: var(--accent); }
+  .record:focus-visible .record-arrow {
+    animation: project-arrow-step 160ms steps(1, end) forwards;
+  }
+  // Touch taps keep the arrow in place; hover motion is for a precise pointer.
+  @media (hover: hover) and (pointer: fine) {
+    .record:hover .record-arrow {
+      animation: project-arrow-step 160ms steps(1, end) forwards;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .page-actions .primary { transition: none; }
+    .record:is(:hover, :focus-visible) .record-arrow { animation: none; transform: none; }
+  }
+  @media (forced-colors: active) {
+    .page-actions .primary {
+      background: ButtonFace;
+      color: ButtonText;
+      border: 1px solid ButtonText;
+      box-shadow: none;
+      &:active { box-shadow: none; }
+      &:hover, &:focus-visible { outline-color: Highlight; }
+    }
+  }
+}
+
+@keyframes project-arrow-step {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(2px); }
+  100% { transform: translateX(4px); }
 }

@@ -201,10 +201,8 @@ function setupConsole(c) {
 
 function setupProfileStream() {
   const container = document.querySelector('.ryr-about .composition');
-  const control = document.getElementById('stream-control');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   const forced = matchMedia('(forced-colors: active)');
-  control.hidden = false;
   const selectors = [ '.profile-content .pixel-heading', '.experience-entry', '.terminal-section > h2', '.terminal-section h3', '.record', '.interactive-shell'];
   const stages = [...container.querySelectorAll(selectors.join(','))];
   stages.forEach((stage, index) => { stage.classList.add('stream-stage'); stage.dataset.streamIndex = index; });
@@ -214,15 +212,12 @@ function setupProfileStream() {
     clearTimeout(timer);
     stages.forEach(stage => { stage.classList.remove('stream-pending'); stage.inert = false; });
     container.dataset.streamState = 'complete'; container.setAttribute('aria-busy', 'false');
-    control.textContent = '[replay]'; control.setAttribute('aria-label', 'Replay profile output');
-    control.hidden = reduce.matches || forced.matches;
   }
-  function start(manual = false) {
+  function start() {
     clearTimeout(timer);
-    if (reduce.matches || forced.matches || (!manual && params.get('motion') === 'off')) { finish(); return; }
+    if (reduce.matches || forced.matches || params.get('motion') === 'off') { finish(); return; }
     cursor = 0;
     container.dataset.streamState = 'streaming'; container.setAttribute('aria-busy', 'true');
-    control.textContent = '[skip]'; control.setAttribute('aria-label', 'Skip profile output');
     stages.forEach(stage => { stage.classList.add('stream-pending'); stage.inert = true; });
     const next = () => {
       if (cursor === stages.length) { finish(); return; }
@@ -231,27 +226,19 @@ function setupProfileStream() {
     };
     next();
   }
-  control.addEventListener('click', () => container.dataset.streamState === 'streaming' ? finish() : start(true));
-  forced.addEventListener('change', () => { if (forced.matches) finish(); else control.hidden = reduce.matches; });
-  reduce.addEventListener('change', () => { if (reduce.matches) finish(); else control.hidden = false; });
+  forced.addEventListener('change', () => { if (forced.matches) finish(); });
+  reduce.addEventListener('change', () => { if (reduce.matches) finish(); });
   document.addEventListener('visibilitychange', () => { if (document.hidden) finish(); });
   start();
 }
 
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   const forced = matchMedia('(forced-colors: active)');
-  const motion = document.querySelector('[data-about-motion]');
-  let paused = false;
   function syncMotion() {
     const disabled = reduce.matches || forced.matches || params.get('motion') === 'off';
     stage.classList.toggle('bots-static', disabled);
-    stage.classList.toggle('bots-paused', paused || document.hidden);
-    motion.hidden = disabled;
-    motion.setAttribute('aria-pressed', String(paused));
-    motion.setAttribute('aria-label', paused ? motion.dataset.resume : motion.dataset.pause);
-    motion.textContent = paused ? '[resume bot]' : '[pause bot]';
+    stage.classList.toggle('bots-paused', document.hidden);
   }
-  motion.addEventListener('click', () => {paused = !paused; syncMotion();});
   reduce.addEventListener('change', syncMotion); forced.addEventListener('change', syncMotion);
   document.addEventListener('visibilitychange', syncMotion);
   syncMotion(); setupConsole(c); setupProfileStream();

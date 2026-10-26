@@ -1,0 +1,76 @@
+// Project documents share one reading column; other docs retain their layout.
+.td-project-page {
+  .td-shell-main--parent-back { display: block; }
+  .td-shell-layout:not(.td-shell-layout--no-sidebar) .td-shell-article {
+    max-width: 58rem;
+  }
+  .td-shell-article { min-width: 0; }
+  .td-parent-back-rail {
+    // Stay above the reading column while the document scrolls underneath.
+    position: sticky;
+    top: calc(var(--td-shell-nav-h, 0px) + .75rem);
+    isolation: isolate;
+    z-index: 20;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    pointer-events: none;
+  }
+  .td-parent-back {
+    position: relative;
+    isolation: isolate;
+    width: auto;
+    min-height: 3.25rem;
+    max-width: 100%;
+    background: var(--td-shell-card, var(--bs-body-bg));
+    box-shadow: none;
+    pointer-events: auto;
+
+    > span { position: relative; z-index: 1; }
+    &__title { white-space: normal; overflow-wrap: anywhere; }
+    &:hover, &:focus-visible { transform: none; }
+    &:focus-visible { outline: 2px solid var(--bs-link-color); outline-offset: 4px; }
+  }
+
+  // Blur the document behind the floating row, fading out towards its bottom.
+  // The button stays sharp; the opaque button above is the unsupported fallback.
+  @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .td-parent-back-rail::before {
+      content: '';
+      position: absolute;
+      inset: -.75rem 0 -1.25rem;
+      z-index: -1;
+      pointer-events: none;
+      background: color-mix(in srgb, var(--bs-body-bg) 65%, transparent);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 60%, transparent 100%);
+      mask-image: linear-gradient(to bottom, #000 0%, #000 60%, transparent 100%);
+    }
+    .td-parent-back {
+      background: linear-gradient(100deg,
+        color-mix(in srgb, var(--td-shell-card, var(--bs-body-bg)) 90%, transparent),
+        color-mix(in srgb, var(--td-shell-card, var(--bs-body-bg)) 55%, transparent));
+    }
+  }
+
+  .td-content :is(h1, h2, h3, h4, h5, h6)[id] {
+    scroll-margin-top: calc(var(--td-shell-nav-h, 0px) + 8rem);
+  }
+
+  @media (max-width: 767.98px) {
+    .td-parent-back-rail { margin-bottom: 1.25rem; }
+  }
+  @media (forced-colors: active) {
+    .td-parent-back-rail::before { display: none; }
+    .td-parent-back {
+      background: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+      &__arrow, &__label { color: ButtonText; }
+      &:focus-visible { outline-color: Highlight; }
+    }
+  }
+  @media print {
+    .td-shell-layout .td-shell-article { max-width: none; }
+  }
+}

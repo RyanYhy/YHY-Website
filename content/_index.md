@@ -18,7 +18,7 @@ profile:
   email_label: "复制邮箱地址"
   copied: "邮箱已复制"
   failed: "未能自动复制，请选中邮箱手动复制。"
-  projects: "查看项目"
+  projects: "项目"
   blog: "博客"
   about: "关于"
   links: "友链"
