@@ -3,7 +3,7 @@ title: Operating System Fundamentals Review (2)
 linkTitle: OS Fundamentals Review (2)
 description: A review of scheduling levels, evaluation metrics, and the rules and trade-offs of FCFS, SJF, HRRN, round robin, and multilevel feedback queues.
 date: 2026-10-20
-lastmod: 2026-10-24
+lastmod: 2026-11-01
 draft: false
 tags: [Study Notes, Operating Systems, CPU Scheduling, Scheduling Algorithms]
 ---
@@ -201,3 +201,30 @@ This time, I start with the scheduling levels and then remember what each algori
 An algorithm appearing later in the list is not automatically better. Batch, interactive, and real-time tasks have different goals. Fairness, completion speed, response, and switching overhead can pull in different directions.
 
 When working through an exercise, I will first write down the arrival times, service requirements, time slices, and queue rules, then draw the execution sequence and calculate the metrics. Looking at how the rules change waiting and execution makes it easier to connect the concepts than memorizing advantages and disadvantages in isolation.
+
+## Which Algorithms Are Only for Process Scheduling {#job-vs-process}
+
+Some scheduling algorithms can be used only for process scheduling, not for job scheduling. A time slice is the amount of CPU time the operating system allocates to a process. Job scheduling does not allocate the CPU. It only decides which jobs to admit, load into memory, and turn into processes.
+
+The object of job scheduling is the job. A process is created only after the job has been loaded into memory. At the job-scheduling stage, a job may not yet have a process, and therefore may not yet have a ready process.
+
+**Round robin (RR)** gives each ready process a time slice. Applied to job scheduling, its object would still be jobs, and those jobs often have no ready process yet. RR requires a ready process as its scheduling object, so that object is not available at this stage. RR applies to process scheduling, not to job scheduling.
+
+**Multilevel queue scheduling** allocates the CPU among different types of ready processes. Its object is also the ready process, for the same reason as RR.
+
+**Multilevel feedback queue scheduling** also rotates ready processes by time slice and uses that behavior to adjust priority. It likewise depends on time slices and ready processes, so it too applies only to process scheduling.
+
+Among the algorithms in this post, only the first three below are limited to process scheduling. The other three can be used for both job scheduling and process scheduling:
+
+| Algorithm | Where it applies |
+| ---- | ---- |
+| Round robin (RR) | Process scheduling only |
+| Multilevel queue scheduling | Process scheduling only |
+| Multilevel feedback queue scheduling | Process scheduling only |
+| First-come, first-served (FCFS) | Both job and process scheduling |
+| Shortest job / process first (SJF / SPF) | Both job and process scheduling |
+| Highest response ratio next (HRRN) | Both job and process scheduling |
+
+FCFS can select by the arrival order of jobs or processes, SJF / SPF can select the one with the shorter estimated service time, and HRRN can select by response ratio. None of these three comparisons requires dividing the CPU into time slices and assigning them to processes that are already ready.
+
+SRTF, mentioned earlier as the preemptive form of SJF, compares the remaining execution time of ready processes, so it is still only for process scheduling. In the table, SJF / SPF can be used at both levels when the choice is the shorter job or the shorter process by estimated service time, without relying on a time slice.
