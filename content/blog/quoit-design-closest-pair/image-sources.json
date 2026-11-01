@@ -1,0 +1,22 @@
+{
+  "article_date": "2026-10-30",
+  "materials_checked": "2026-11-01",
+  "images": [
+    {
+      "file": "cover.png",
+      "type": "user_supplied_illustration",
+      "creator": "Supplied by the author for this post",
+      "retrieved": "2026-11-01",
+      "modified": false,
+      "scope": "Header illustration: the largest quoit radius is half the closest-pair distance, and the merge only checks a few points in the strip."
+    },
+    {
+      "file": "strip-cells.png",
+      "type": "original_concept_diagram",
+      "creator": "Redrawn from the author's proof sketch",
+      "retrieved": "2026-11-01",
+      "modified": true,
+      "scope": "The 2d by d rectangle split into eight cells. Overlapping labels in the sketch were separated. The split, the cell size, and the seven candidates are unchanged."
+    }
+  ]
+}

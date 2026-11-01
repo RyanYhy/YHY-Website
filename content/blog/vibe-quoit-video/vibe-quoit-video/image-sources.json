@@ -1,0 +1,14 @@
+{
+  "article_date": "2026-11-01",
+  "materials_checked": "2026-11-01",
+  "images": [
+    {
+      "file": "cover.png",
+      "type": "generated_concept_illustration",
+      "generator": "Built-in image generation",
+      "created": "2026-11-01",
+      "modified": false,
+      "scope": "Header scene of a script, a voxel quoit stall, a filming robot, a clock, and coins. It is not a frame from the unfinished video."
+    }
+  ]
+}
