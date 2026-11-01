@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 640" role="img" width="1600" height="640">
+  <rect width="1600" height="640" fill="#FFFFFF"/>
+  <text x="800" y="52" text-anchor="middle" fill="#123A63" font-family="Segoe UI, PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="36" font-weight="700">传感器到任务的数据流</text>
+
+  <text x="48" y="100" fill="#5C7286" font-family="Segoe UI, PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="16" font-weight="650">定位与导航</text>
+  <rect x="48" y="116" width="220" height="64" rx="14" fill="#FFFFFF" stroke="#0E7490" stroke-width="1.5"/>
+  <text x="158" y="154" text-anchor="middle" fill="#16324F" font-family="Segoe UI, PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="20" font-weight="600">/imu</text>
+  <rect x="48" y="196" width="220" height="64" rx="14" fill="#FFFFFF" stroke="#0E7490" stroke-width="1.5"/>
+  <text x="158" y="234" text-anchor="middle" fill="#16324F" font-family="Segoe UI, PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="20" font-weight="600">odom_raw</text>
+  <rect x="360" y="156" width="250" height="64" rx="14" fill="#F3FBFC" stroke="#0E7490" stroke-width="1.5"/>
+  <text x="485" y="194" text-anchor="middle" fill="#16324F" font-family="Segoe UI, PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="20" font-weight="600">EKF  /odom</text>
+  <rect x="700" y="156" width="180" height="64" rx="14" fill="#F3FBFC" stroke="#0E7490" stroke-width="1.5"/>
+  <text x="790" y="194" text-anchor="middle" fill="#16324F" font-family="Segoe UI, PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="20" font-weight="600">AMCL</text>
+  <rect x="700" y="248" width="180" height="56" rx="14" fill="#FFFFFF" stroke="#0E7490" stroke-width="1.5"/>
+  <text x="790" y="282" text-anchor="middle" fill="#16324F" font-family="Segoe UI, PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="20" font-weight="600">/scan</text>
+  <rect x="970" y="156" width="210" height="64" rx="14" fill="#F3FBFC" stroke="#0E7490" stroke-width="1.5"/>
+  <text x="1075" y="194" text-anchor="middle" fill="#16324F" font-family="Segoe UI, PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="20" font-weight="600">move_base</text>
+
+  <line x1="268" y1="148" x2="348" y2="176" stroke="#0E7490" stroke-width="2"/>
+  <polygon points="360,180 348,172 354,164" fill="#0E7490"/>
+  <line x1="268" y1="228" x2="348" y2="200" stroke="#0E7490" stroke-width="2"/>
+  <polygon points="360,196 348,204 354,212" fill="#0E7490"/>
+  <line x1="610" y1="188" x2="688" y2="188" stroke="#0E7490" stroke-width="2"/>
+  <polygon points="700,188 688,182 688,194" fill="#0E7490"/>
+  <line x1="790" y1="248" x2="790" y2="232" stroke="#0E7490" stroke-width="2"/>
+  <polygon points="790,220 784,232 796,232" fill="#0E7490"/>
+  <line x1="880" y1="188" x2="958" y2="188" stroke="#0E7490" stroke-width="2"/>
+  <polygon points="970,188 958,182 958,194" fill="#0E7490"/>
+  <line x1="1075" y1="220" x2="1075" y2="548" stroke="#0E7490" stroke-width="2"/>
+  <polygon points="1075,560 1069,548 1081,548" fill="#0E7490"/>
+  <text x="1210" y="360" fill="#5C7286" font-family="Segoe UI, PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="15" font-weight="600">规划速度</text>
+
+  <text x="48" y="360" fill="#5C7286" font-family="Segoe UI, PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="16" font-weight="650">视觉与任务</text>
+  <rect x="48" y="376" width="420" height="64" rx="14" fill="#FFFFFF" stroke="#0E7490" stroke-width="1.5"/>
+  <text x="258" y="414" text-anchor="middle" fill="#16324F" font-family="Segoe UI, PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="20" font-weight="600">/camera/color/image_raw</text>
+  <rect x="540" y="376" width="250" height="64" rx="14" fill="#F3FBFC" stroke="#0E7490" stroke-width="1.5"/>
+  <text x="665" y="414" text-anchor="middle" fill="#16324F" font-family="Segoe UI, PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="20" font-weight="600">yolo_onnx.py</text>
+  <rect x="900" y="376" width="250" height="64" rx="14" fill="#F3FBFC" stroke="#0E7490" stroke-width="1.5"/>
+  <text x="1025" y="414" text-anchor="middle" fill="#16324F" font-family="Segoe UI, PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="20" font-weight="600">main_nav.py</text>
+
+  <line x1="468" y1="408" x2="528" y2="408" stroke="#0E7490" stroke-width="2"/>
+  <polygon points="540,408 528,402 528,414" fill="#0E7490"/>
+  <line x1="804" y1="408" x2="886" y2="408" stroke="#0E7490" stroke-width="2"/>
+  <polygon points="790,408 804,401 804,415" fill="#0E7490"/>
+  <polygon points="900,408 886,401 886,415" fill="#0E7490"/>
+  <text x="845" y="396" text-anchor="middle" fill="#0E7490" font-family="Segoe UI, PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="15" font-weight="650">任务话题</text>
+  <line x1="665" y1="440" x2="665" y2="548" stroke="#0E7490" stroke-width="2"/>
+  <polygon points="665,560 659,548 671,548" fill="#0E7490"/>
+  <text x="700" y="510" fill="#5C7286" font-family="Segoe UI, PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="15" font-weight="600">追踪时 /cmd_vel</text>
+
+  <rect x="48" y="548" width="1504" height="68" rx="16" fill="#E5F4F6" stroke="#0E7490" stroke-width="1.5"/>
+  <text x="800" y="590" text-anchor="middle" fill="#123A63" font-family="Segoe UI, PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="24" font-weight="700">底盘  /cmd_vel</text>
+</svg>

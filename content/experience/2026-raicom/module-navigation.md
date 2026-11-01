@@ -1,7 +1,7 @@
 ---
 title: 导航
 linkTitle: 导航
-description: move_base、costmap、反坦克点云与 cmd_vel 速度链路。
+description: "`move_base`、costmap、反坦克点云与 `cmd_vel` 速度链路。"
 weight: 60
 ---
 
@@ -26,11 +26,11 @@ weight: 60
 反坦克点云由 [`orbbec_mine_antitank.py`](https://github.com/RyanYhy/raicom2026/blob/main/src/raicom2026/scripts/orbbec_mine_antitank.py) 在 P21 一次性识别后发布（map 帧，0.5s 重发）。
 
 > [!NOTE]
-> `visual_mine_avoidance.py` 在 prep 会起，但 `enable_at=false`，**不发布**比赛用点云。
+> `visual_mine_avoidance.py` 在 prep 会起，但 `enable_at=false`，**不发布** 比赛用点云。
 
 ## cmd_vel 速度链路 {#cmd-vel}
 
-![cmd_vel 链路](/images/raicom2026/cmd_vel_chain.png)
+![速度链路](/images/raicom2026/cmd_vel_chain.png)
 
 ```
 move_base → /move_base/cmd_vel → cmd_vel_merge → /cmd_vel → base_controller

@@ -29,7 +29,9 @@ weight: 20
 source ~/1raicom_ws/scripts/setup_env.sh
 ```
 
-[`setup_env.sh`](https://github.com/RyanYhy/raicom2026/blob/main/scripts/setup_env.sh) 依次 overlay ROS → cartographer → 1raicom_ws → cv_bridge，并强制 `1raicom_ws` 在 `ROS_PACKAGE_PATH` 最前。
+[`setup_env.sh`](https://github.com/RyanYhy/raicom2026/blob/main/scripts/setup_env.sh)
+
+依次 overlay ROS → cartographer → `1raicom_ws` → cv_bridge，并强制 `1raicom_ws` 在 `ROS_PACKAGE_PATH` 最前。
 
 ## 编译 {#build}
 

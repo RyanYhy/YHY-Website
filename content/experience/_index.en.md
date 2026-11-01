@@ -23,4 +23,4 @@ cascade:
   search_boost: 0.9
 ---
 
-Projects I have participated in or studied in depth. Open a project to browse its documentation. English translations are being added gradually.
+Projects I have participated in or studied in depth. Open a project to browse its documentation. The two competition projects below are available in English.

@@ -11,7 +11,7 @@
 | ---- | ---- |
 | [关于](content/about.md) | 独立的简洁个人介绍 |
 | [博客](content/blog/) | 随笔与更新 |
-| [项目](content/experience/) | 参与或深入学习的项目，含 [2026 RAICOM 智能侦察](content/experience/2026-raicom/) |
+| [项目](content/experience/) | 参与或深入学习的项目，含 [2026 RAICOM 智能侦察](content/experience/2026-raicom/) 与 [2025 智慧社区](content/experience/2025-zhihuishequ/) |
 | [友链](content/links.md) | 推荐站点 |
 
 主入口按「关于、博客、项目、友链」排列。项目保留 `/experience/` 地址；

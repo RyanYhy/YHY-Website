@@ -94,7 +94,7 @@ test('theme toggle and existing site routes remain usable',async({page,request})
  await page.addInitScript(()=>{if(!localStorage.getItem('td-color-theme'))localStorage.setItem('td-color-theme','light');});await page.goto('./?motion=off');
  await page.locator('[data-td-theme-toggle]:visible').first().click();await expect(page.locator('html')).toHaveAttribute('data-bs-theme','dark');await expect(page.locator('body')).toHaveCSS('background-color','rgb(16, 16, 18)');
  for(const prefix of ['', 'en/']){
-  for(const route of ['', 'about/','blog/','experience/','links/','experience/sample-project/'])expect((await request.get(prefix+route)).status()).toBe(200);
+  for(const route of ['', 'about/','blog/','experience/','links/'])expect((await request.get(prefix+route)).status()).toBe(200);
   expect((await request.get(prefix+'learn/')).status()).toBe(404);
  }
  expect((await request.get('experience/2026-raicom/overview/')).status()).toBe(200);

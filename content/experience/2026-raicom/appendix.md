@@ -7,7 +7,7 @@ weight: 90
 
 ## 未完成功能 {#unfinished}
 
-### 黄线循线
+### 黄线循线 {#yellow-line}
 
 | 环节 | 状态 |
 | ---- | ---- |
@@ -15,7 +15,7 @@ weight: 90
 | `cmd_vel_merge.py` | `enable_line_follow=false` |
 | 比赛效果 | **无**；速度仅透传 |
 
-### visual_mine_avoidance
+### visual_mine_avoidance {#visual-mine-avoidance}
 
 | 能力 | 状态 |
 | ---- | ---- |
