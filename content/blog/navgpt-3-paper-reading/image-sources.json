@@ -1,0 +1,94 @@
+{
+  "article_date": "2026-10-25",
+  "materials_checked": "2026-11-01",
+  "images": [
+    {
+      "file": "cover.png",
+      "type": "user_supplied_illustration",
+      "creator": "Supplied by the author for this post",
+      "retrieved": "2026-11-01",
+      "modified": false,
+      "scope": "Header illustration: Planner, Harness, VLA, and Runtime form one route, and a wrong branch is abandoned before the doorway. It does not reproduce a paper figure."
+    },
+    {
+      "file": "roles.png",
+      "type": "original_concept_diagram",
+      "creator": "Drawn for this post",
+      "retrieved": "2026-11-01",
+      "modified": false,
+      "scope": "Diagram of the four responsibilities, kept in the body as an explanatory figure."
+    },
+    {
+      "file": "runtime-abstraction.png",
+      "type": "annotated_paper_figure",
+      "creator": "Gengze Zhou et al., with the author's reading marks",
+      "source_page": "https://arxiv.org/abs/2610.10787",
+      "retrieved": "2026-11-01",
+      "modified": true,
+      "scope": "Excerpt of the runtime abstraction figure. Red notes were added while reading."
+    },
+    {
+      "file": "thread-coordination.png",
+      "type": "annotated_paper_figure",
+      "creator": "Gengze Zhou et al., with the author's reading marks",
+      "source_page": "https://arxiv.org/abs/2610.10787",
+      "retrieved": "2026-11-01",
+      "modified": true,
+      "scope": "Thread-coordination figure with reading notes."
+    },
+    {
+      "file": "runtime-timeline.png",
+      "type": "annotated_paper_figure",
+      "creator": "Gengze Zhou et al., with the author's reading marks",
+      "source_page": "https://arxiv.org/abs/2610.10787",
+      "retrieved": "2026-11-01",
+      "modified": true,
+      "scope": "Figure 2 timeline of route repair and safety interruption."
+    },
+    {
+      "file": "codec-views.png",
+      "type": "annotated_paper_figure",
+      "creator": "Gengze Zhou et al., with the author's reading marks",
+      "source_page": "https://arxiv.org/abs/2610.10787",
+      "retrieved": "2026-11-01",
+      "modified": true,
+      "scope": "Codec visual-allocation figure."
+    },
+    {
+      "file": "codec-score.png",
+      "type": "annotated_paper_figure",
+      "creator": "Gengze Zhou et al., with the author's reading notes",
+      "source_page": "https://arxiv.org/abs/2610.10787",
+      "retrieved": "2026-11-01",
+      "modified": true,
+      "scope": "Reading notes beside the change-score formulas."
+    },
+    {
+      "file": "harness-search.png",
+      "type": "annotated_paper_figure",
+      "creator": "Gengze Zhou et al., with the author's reading marks",
+      "source_page": "https://arxiv.org/abs/2610.10787",
+      "retrieved": "2026-11-01",
+      "modified": true,
+      "scope": "Harness-search figure and development curve."
+    },
+    {
+      "file": "tool-ablation.png",
+      "type": "annotated_paper_figure",
+      "creator": "Gengze Zhou et al., with the author's reading marks",
+      "source_page": "https://arxiv.org/abs/2610.10787",
+      "retrieved": "2026-11-01",
+      "modified": true,
+      "scope": "Tables 3 and 4, with cells marked while reading."
+    },
+    {
+      "file": "visual-prompts.png",
+      "type": "annotated_paper_figure",
+      "creator": "Gengze Zhou et al., with the author's reading marks",
+      "source_page": "https://arxiv.org/abs/2610.10787",
+      "retrieved": "2026-11-01",
+      "modified": true,
+      "scope": "Figure 6, visual prompt organization."
+    }
+  ]
+}
