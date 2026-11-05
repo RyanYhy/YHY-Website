@@ -1,0 +1,48 @@
+{{- /*
+  Play a Bilibili video on this page, with one link that opens the video page.
+
+  HTML: official player, autoplay off.
+  Markdown/RSS: the video-page link only.
+
+  The player needs cid. Without it, Bilibili answers -400 and plays its error clip.
+  aid is optional and sent when the page has it.
+
+  Usage: {{< bilibili id="BV1qc4P6GEt6" cid="43271260874" aid="117547500307998" >}}
+*/ -}}
+{{- $bvid := .Get "id" | default (.Get 0) | default "" -}}
+{{- $cid := .Get "cid" | default "" -}}
+{{- $aid := .Get "aid" | default "" -}}
+{{- if not (findRE `^BV[0-9A-Za-z]+$` $bvid) -}}
+  {{- errorf "bilibili shortcode: %q is not a BV id" $bvid -}}
+{{- end -}}
+{{- if not (findRE `^[0-9]+$` $cid) -}}
+  {{- errorf "bilibili shortcode: cid must be digits, got %q" $cid -}}
+{{- end -}}
+{{- if and $aid (not (findRE `^[0-9]+$` $aid)) -}}
+  {{- errorf "bilibili shortcode: aid must be digits, got %q" $aid -}}
+{{- end -}}
+{{- $pageURL := printf "https://www.bilibili.com/video/%s/" $bvid -}}
+{{- $player := printf "https://player.bilibili.com/player.html?bvid=%s&cid=%s&p=1&as_wide=1&high_quality=1&autoplay=0" $bvid $cid -}}
+{{- if $aid -}}
+  {{- $player = printf "%s&aid=%s" $player $aid -}}
+{{- end -}}
+{{- $en := eq .Page.Language.Lang "en" -}}
+{{- $linkText := cond $en "Open on Bilibili" "在 B 站打开" -}}
+{{- $frameTitle := cond $en (printf "Bilibili player %s" $bvid) (printf "B 站播放器 %s" $bvid) -}}
+{{- /* Always emit the player. Page content is cached on the first output format,
+       and that first pass is often RSS, which would otherwise drop the iframe. */ -}}
+<figure class="td-bilibili">
+  <div class="td-bilibili__frame">
+    <iframe
+      src="{{ $player }}"
+      title="{{ $frameTitle }}"
+      loading="lazy"
+      scrolling="no"
+      allowfullscreen="true"
+      allow="fullscreen; encrypted-media; picture-in-picture">
+    </iframe>
+  </div>
+  <figcaption class="td-bilibili__open">
+    <a href="{{ $pageURL }}">{{ $linkText }}</a>
+  </figcaption>
+</figure>

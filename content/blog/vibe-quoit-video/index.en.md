@@ -3,6 +3,7 @@ title: An Attempt at a Vibe Knowledge Video
 linkTitle: A Vibe Knowledge Video
 description: "An attempt to make a vibe-style video of Quoit Design, and what Grok bot, Opus, and a more specific script each changed."
 date: 2026-11-01
+lastmod: 2026-11-03
 draft: false
 tags: [Study Notes, Video, Quoit Design]
 ---
@@ -63,6 +64,8 @@ Those two stages already add up to 1 minute 12 seconds. The script is planned as
 
 Auto mode does not label which model ran. This is a fairly complex job, so it would generally call the strongest in-house model, Grok 4.7 high.
 
-## The Video Is Not Posted Yet {#later}
+## This Cut on Bilibili {#later}
 
-The full video is still rendering. When it is done I plan to post it on Bilibili and Douyin and see whether a video built from this problem gets any attention. The links and the traffic numbers will be added here after it is posted.
+Added on November 3: this cut is on Bilibili. The player stays on this page. The link under it opens Bilibili. It is not on Douyin yet, and the view counts are not written down here.
+
+{{< bilibili id="BV1qc4P6GEt6" cid="43271260874" aid="117547500307998" >}}

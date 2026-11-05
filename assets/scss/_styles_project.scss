@@ -853,9 +853,9 @@ ul.td-checkbox-list {
 // -- Stark HUD cursor ------------------------------------------------------
 //
 // A follower reticle, not a bitmap cursor. The script in
-// layouts/_partials/hooks/body-end.html adds `has-stark-cursor` only for a
-// fine pointer without reduced motion or forced colors. Until then the
-// system cursor stays.
+// layouts/_partials/hooks/body-end.html adds `has-stark-cursor` only on the
+// homepage, and only for a fine pointer without reduced motion or forced
+// colors. Other pages keep the system cursor.
 
 .td-stark-cursor {
   position: fixed;
@@ -956,20 +956,10 @@ html.has-stark-cursor.is-stark-locked .td-stark-cursor__scale {
     cursor: none !important;
   }
 
-  // I-beam while the pointer is inside a line's text rectangle. The empty
-  // tail after that rectangle, and the gap between lines, keep the reticle.
-  html.has-stark-cursor.is-stark-text,
-  html.has-stark-cursor.is-stark-text * {
-    cursor: text !important;
-  }
-
-  html.has-stark-cursor:not(.is-stark-text),
-  html.has-stark-cursor:not(.is-stark-text) * {
-    cursor: none !important;
-  }
-
-  html.has-stark-cursor:not(.is-stark-text) :is(input, textarea, [contenteditable='true']),
-  html.has-stark-cursor:not(.is-stark-text) :is(input, textarea, [contenteditable='true']) * {
+  // Headings and paragraphs keep the reticle. Only a real text field
+  // brings back the I-beam, so the homepage terminal can still be edited.
+  html.has-stark-cursor :is(input, textarea, [contenteditable='true']),
+  html.has-stark-cursor :is(input, textarea, [contenteditable='true']) * {
     cursor: text !important;
   }
 

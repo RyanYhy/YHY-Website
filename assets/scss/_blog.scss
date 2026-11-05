@@ -67,3 +67,30 @@ ul._list-unstyled {
     }
   }
 }
+
+// On-page Bilibili player. Playback stays in the iframe; the link opens the video page.
+.td-bilibili {
+  margin: 1.25rem 0 0.35rem;
+
+  &__frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: var(--td-radius-md, 12px);
+    background: #0e0b0b;
+
+    iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  }
+
+  &__open {
+    margin: 0.65rem 0 0;
+    font-size: 0.95rem;
+  }
+}

@@ -10,6 +10,10 @@
 
   if (!allowed()) return;
 
+  // The reticle is the homepage's fullscreen cursor. Every other page keeps
+  // the system pointer, I-beam, and resize cursors.
+  if (!document.body.classList.contains('td-profile-page')) return;
+
   var root = document.documentElement;
   var cursor = document.createElement('div');
   cursor.className = 'td-stark-cursor is-off';
@@ -31,39 +35,6 @@
   var fieldSel = 'input, textarea, select, option, [contenteditable="true"]';
   var interactiveSel = 'a, button, summary, [role="button"], [role="link"]';
 
-  var blockSel = 'p, li, blockquote, dd, figcaption, td, th, h1, h2, h3, h4, h5, h6';
-
-  // A multi-line paragraph is one rectangle, including the gap between lines,
-  // so the I-beam does not swap for the reticle on the way down.
-  // A single line stays tight to the glyphs; the empty tail after it does not.
-  function overTextLine(px, py) {
-    var el = document.elementFromPoint(px, py);
-    if (!el || !el.closest) return false;
-    var block = el.closest(blockSel);
-    if (!block || block.closest(interactiveSel)) return false;
-    var box = block.getBoundingClientRect();
-    if (px < box.left || px > box.right || py < box.top || py > box.bottom) return false;
-    var range = document.createRange();
-    try {
-      range.selectNodeContents(block);
-    } catch (err) {
-      return false;
-    }
-    var rects = range.getClientRects();
-    var lines = 0;
-    var i;
-    for (i = 0; i < rects.length; i++) {
-      if (rects[i].width >= 2 && rects[i].height >= 2) lines++;
-    }
-    if (lines > 1) return true;
-    for (i = 0; i < rects.length; i++) {
-      var r = rects[i];
-      if (r.width < 2 || r.height < 2) continue;
-      if (px >= r.left && px <= r.right && py >= r.top && py <= r.bottom) return true;
-    }
-    return false;
-  }
-
   function mode(el) {
     if (!el || !el.closest) return 'hud';
     if (root.hasAttribute('data-td-shell-resizing')) return 'native';
@@ -72,7 +43,6 @@
     if (el.closest(':disabled, [aria-disabled="true"]')) return 'native';
     if (el.closest(interactiveSel)) return 'lock';
     if (el.closest(fieldSel)) return 'native';
-    if (overTextLine(x, y)) return 'text';
     return 'hud';
   }
 
@@ -85,7 +55,6 @@
     }
     cursor.classList.toggle('is-off', !showHud);
     root.classList.toggle('is-stark-locked', next === 'lock');
-    root.classList.toggle('is-stark-text', next === 'text');
   }
 
   function tick() {
@@ -116,14 +85,14 @@
     if (e.relatedTarget) return;
     active = false;
     cursor.classList.add('is-off');
-    root.classList.remove('is-stark-locked', 'is-stark-text');
+    root.classList.remove('is-stark-locked');
   }
 
   document.addEventListener('pointermove', onMove, { passive: true });
   document.addEventListener('mouseout', onOut);
 
   function teardown() {
-    root.classList.remove('has-stark-cursor', 'is-stark-locked', 'is-stark-text');
+    root.classList.remove('has-stark-cursor', 'is-stark-locked');
     if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
     document.removeEventListener('pointermove', onMove);
     document.removeEventListener('mouseout', onOut);
